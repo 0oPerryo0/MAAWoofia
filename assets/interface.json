@@ -1,0 +1,32 @@
+{
+    // 文件：https://maafw.xyz/docs/3.3-ProjectInterfaceV2
+    "interface_version": 2,
+    "name": "MaaWoofia",
+    "description": "XXL Woofia 每日自動化小幫手，基於 MaaFramework。",
+    "license": "MIT",
+    "welcome": "歡迎使用 MaaWoofia！請先在模擬器設定中開啟 ADB，並將解析度設為 1280x720 橫向。",
+    "version": "0.0.1",
+    "controller": [
+        {
+            "name": "Android (ADB)",
+            "type": "Adb",
+            "display_short_side": 720
+        }
+    ],
+    "resource": [
+        {
+            "name": "官方 APK",
+            "path": [
+                "./resource"
+            ]
+        }
+    ],
+    "agent": {
+        "child_exec": "python",
+        "child_args": [
+            "./agent/main.py"
+        ]
+    },
+    "task": [],
+    "option": {}
+}
