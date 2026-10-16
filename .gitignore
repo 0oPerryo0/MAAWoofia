@@ -453,5 +453,5 @@ tools/ImageCropper/**/*.png
 config
 debug
 # Local dev artifacts (raw screenshots, asset dumps) - never commit
-dev/
+/dev/
 .superpowers/
