@@ -14,11 +14,7 @@
             "param": {
                 "all_of": [
                     "HomeAnchor",
-                    {
-                        "recognition": "OCR",
-                        "expected": "^任務$",
-                        "roi": [500, 250, 220, 420]
-                    }
+                    "HomeIcon_Missions"
                 ],
                 "box_index": 1
             }

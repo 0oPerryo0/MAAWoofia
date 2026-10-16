@@ -24,6 +24,8 @@
         },
         "action": "Click",
         "post_delay": 2000,
+        // 每日重置後首次進入市集會較久（黑畫面載入）
+        "timeout": 60000,
         "next": [
             "ShopFree_DailyTab",
             "[JumpBack]ClosePopup",

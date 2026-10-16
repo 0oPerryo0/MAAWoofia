@@ -8,6 +8,8 @@
             "StartUp_Recover"
         ],
         "next": [
+            "[JumpBack]SignInClaim",
+            "[JumpBack]SignInDismiss",
             "HomeAnchor",
             "StartUp_TapToStart",
             "StartUp_SkipIntro",
@@ -24,6 +26,8 @@
         "post_delay": 2000,
         "timeout": 180000,
         "next": [
+            "[JumpBack]SignInClaim",
+            "[JumpBack]SignInDismiss",
             "HomeAnchor",
             "StartUp_TapToStart",
             "[JumpBack]ClosePopup",
@@ -38,6 +42,8 @@
         "post_delay": 1000,
         "timeout": 180000,
         "next": [
+            "[JumpBack]SignInClaim",
+            "[JumpBack]SignInDismiss",
             "HomeAnchor",
             "StartUp_TapToStart",
             "StartUp_SkipIntro",
@@ -48,6 +54,8 @@
     "StartUp_Recover": {
         "timeout": 120000,
         "next": [
+            "[JumpBack]SignInClaim",
+            "[JumpBack]SignInDismiss",
             "HomeAnchor",
             "StartUp_TapToStart",
             "StartUp_SkipIntro",

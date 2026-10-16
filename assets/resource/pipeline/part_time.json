@@ -13,11 +13,7 @@
             "param": {
                 "all_of": [
                     "HomeAnchor",
-                    {
-                        "recognition": "OCR",
-                        "expected": "^打工$",
-                        "roi": [500, 250, 220, 420]
-                    }
+                    "HomeIcon_PartTime"
                 ],
                 "box_index": 1
             }
@@ -108,7 +104,8 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "一鍵打工",
+                        // OCR 常漏讀細筆畫「一」
+                        "expected": "鍵打工",
                         "roi": [240, 135, 240, 60]
                     },
                     {

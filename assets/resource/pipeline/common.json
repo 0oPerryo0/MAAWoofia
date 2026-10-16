@@ -10,6 +10,15 @@
                         "expected": "出擊",
                         "roi": [280, 1110, 160, 90]
                     },
+                    // 「出擊」字樣需為亮色：任何彈窗或對話框覆蓋時主畫面會變暗
+                    // （亮像素約 1900 → 0；MAA 截圖的白色約為 247,239,227，故門檻不可設太高）
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [310, 1125, 100, 55],
+                        "lower": [200, 195, 180],
+                        "upper": [255, 255, 255],
+                        "count": 500
+                    },
                     {
                         "recognition": "OCR",
                         // 「慾」常被 OCR 誤讀（如「培您」），改以英文標籤 SESSION 或「培」開頭判定
@@ -26,11 +35,47 @@
     // 用法：在 next 中寫 "[JumpBack]GoHomeStep"，每次執行一步返回動作後回到原列表重新判斷
     "GoHomeStep": {
         "next": [
+            "SignInClaim",
+            "SignInDismiss",
             "ExitDialogCancel",
             "ClosePopup",
             "NetworkRetry",
             "PressBack"
         ]
+    },
+    // 每日首次登入的「簽到獎勵」：點擊發亮（黃色）的當日卡片領取
+    "SignInClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "簽到獎勵",
+                        "roi": [380, 240, 260, 130]
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [130, 480, 470, 500],
+                        "lower": [230, 190, 90],
+                        "upper": [255, 245, 145],
+                        "count": 3000
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_delay": 2500
+    },
+    // 已領取（無發亮卡片）的簽到視窗：返回鍵關閉
+    "SignInDismiss": {
+        "recognition": "OCR",
+        "expected": "簽到獎勵",
+        "roi": [380, 240, 260, 130],
+        "action": "ClickKey",
+        "key": 4,
+        "post_delay": 2000
     },
     // 主畫面按返回鍵會跳出「是否要回到標題畫面？」，一律取消
     "ExitDialogCancel": {
@@ -42,7 +87,9 @@
         "roi": [120, 540, 480, 140],
         "action": "Click",
         "target": [190, 700, 140, 50],
-        "post_delay": 1000
+        "post_delay": 1000,
+        // 等對話框淡出、畫面穩定後再判斷（否則主畫面仍偏暗，會再按返回而來回循環）
+        "post_wait_freezes": 800
     },
     // 已知的可關閉彈窗，遇到新彈窗時在此擴充
     "ClosePopup": {
@@ -65,7 +112,99 @@
     "PressBack": {
         "action": "ClickKey",
         "key": 4,
-        "post_delay": 2500,
+        "post_delay": 1000,
+        "post_wait_freezes": 800,
         "max_hit": 40
+    },
+    // 主畫面右側圖示（位置固定）：標籤模板或 OCR 任一命中即可
+    "HomeIcon_PartTime": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "TemplateMatch",
+                        "template": "home/part_time.png",
+                        "roi": [
+                            600,
+                            450,
+                            120,
+                            100
+                        ],
+                        "threshold": 0.75
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^打工$",
+                        "roi": [
+                            600,
+                            450,
+                            120,
+                            90
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "HomeIcon_Missions": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "TemplateMatch",
+                        "template": "home/missions.png",
+                        "roi": [
+                            600,
+                            360,
+                            120,
+                            100
+                        ],
+                        "threshold": 0.75
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^任務$",
+                        "roi": [
+                            600,
+                            360,
+                            120,
+                            90
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "HomeIcon_Sausage": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "TemplateMatch",
+                        "template": "home/sausage.png",
+                        "roi": [
+                            495,
+                            455,
+                            135,
+                            90
+                        ],
+                        "threshold": 0.75
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "香腸",
+                        "roi": [
+                            500,
+                            450,
+                            125,
+                            90
+                        ]
+                    }
+                ]
+            }
+        }
     }
 }

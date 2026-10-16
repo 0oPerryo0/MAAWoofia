@@ -25,11 +25,7 @@
             "param": {
                 "all_of": [
                     "HomeAnchor",
-                    {
-                        "recognition": "OCR",
-                        "expected": "香腸伯",
-                        "roi": [500, 250, 220, 420]
-                    }
+                    "HomeIcon_Sausage"
                 ],
                 "box_index": 1
             }
