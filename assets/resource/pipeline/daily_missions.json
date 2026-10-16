@@ -1,0 +1,132 @@
+{
+    // 每日任務：放在整個日常流程最後執行。一鍵領取會同時開啟已達成的活躍寶箱（20~100）。
+    // 每週任務：一鍵領取為黃色時才領。
+    "DailyMissions": {
+        "next": [
+            "Missions_Open",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "Missions_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor",
+                    {
+                        "recognition": "OCR",
+                        "expected": "^任務$",
+                        "roi": [500, 250, 220, 420]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [0, -30, 0, 0],
+        "post_delay": 2000,
+        "next": [
+            "Missions_DailyTab",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Missions_DailyTab": {
+        "recognition": "OCR",
+        "expected": "每日任務",
+        "roi": [30, 1105, 180, 55],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Missions_DailyClaim",
+            "Missions_GoWeekly"
+        ]
+    },
+    "Missions_DailyClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "鍵領取",
+                        "roi": [275, 1180, 170, 60]
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [275, 1180, 170, 60],
+                        "lower": [220, 190, 30],
+                        "upper": [255, 240, 110],
+                        "count": 1500
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "Missions_DailyReward",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Missions_DailyReward": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 840, 720, 80],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Missions_DailyClaim",
+            "Missions_GoWeekly",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    "Missions_GoWeekly": {
+        "recognition": "OCR",
+        "expected": "每週任務",
+        "roi": [270, 1105, 180, 55],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Missions_WeeklyClaim",
+            "Missions_Done"
+        ]
+    },
+    "Missions_WeeklyClaim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "Missions_DailyClaim"
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "Missions_WeeklyReward",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Missions_WeeklyReward": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 840, 720, 80],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Missions_WeeklyClaim",
+            "Missions_Done",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    "Missions_Done": {
+        "recognition": "OCR",
+        "expected": "鍵領取",
+        "roi": [275, 1180, 170, 60],
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}
