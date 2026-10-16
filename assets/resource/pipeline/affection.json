@@ -2,6 +2,7 @@
     // 培慾：契合度結算按鈕黃色 = 可結算，灰色 = 無可結算
     "AffectionClaim": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Affection_Open",
             "[JumpBack]GoHomeStep"
         ]
@@ -86,6 +87,7 @@
     // 卡牌遊戲固定 3 回合；選牌策略見 agent/interest_guess.py（對照表 → 黃框 → 中間未知牌）。
     "AffectionBonus": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Bonus_OpenRoom",
             "[JumpBack]GoHomeStep"
         ]
@@ -131,13 +133,14 @@
         "next": [
             "Bonus_NoFreeUse",
             "Bonus_Round1",
+            "Bonus_Finished",
             "[JumpBack]Bonus_Advance"
         ]
     },
     // 造型已解鎖：加速培慾直接給好感
     "Bonus_Accelerate": {
         "recognition": "OCR",
-        "expected": "加速培慾",
+        "expected": "加速培",
         "roi": [130, 1185, 330, 55],
         "action": "Click",
         "post_delay": 3000,
@@ -254,7 +257,7 @@
         "action": "Click",
         "target": [330, 280, 60, 40],
         "post_delay": 1500,
-        "max_hit": 40
+        "max_hit": 15
     },
     // 回到房間待機畫面 = 本次結束
     "Bonus_Finished": {
@@ -269,7 +272,7 @@
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "抽牌|加速培慾",
+                        "expected": "抽牌|加速培",
                         "roi": [130, 1185, 330, 55]
                     }
                 ]

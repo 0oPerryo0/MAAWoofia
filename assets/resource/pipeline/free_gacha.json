@@ -4,6 +4,7 @@
     // 進入召喚預設為常駐召喚（每日免費單抽所在）。
     "FreeGacha": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "FreeGacha_Open",
             "[JumpBack]GoHomeStep"
         ]

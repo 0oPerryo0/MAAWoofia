@@ -52,6 +52,7 @@ class InterestRound(CustomAction):
     def run(self, context: Context, argv: CustomAction.RunArg) -> bool:
         param = json.loads(argv.custom_action_param or "{}") or {}
         character = param.get("character", "")
+        print(f"interest_round: character={character!r}", flush=True)
         table = json.loads(TABLE_PATH.read_text(encoding="utf-8"))
 
         image = context.tasker.controller.post_screencap().wait().get()

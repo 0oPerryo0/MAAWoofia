@@ -3,6 +3,7 @@
     // 本時段已領取後主畫面的香腸伯圖示會消失：在主畫面且找不到圖示 = 已完成
     "SausageStamina": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Sausage_Open",
             "Sausage_NotAvailable",
             "[JumpBack]GoHomeStep"
@@ -78,6 +79,7 @@
         "action": "ClickKey",
         "key": 4,
         "post_delay": 2000,
+        "max_hit": 6,
         "next": [
             "Sausage_AlreadyDone",
             "Sausage_Result",

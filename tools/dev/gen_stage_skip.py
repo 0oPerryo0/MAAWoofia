@@ -51,15 +51,25 @@ def sweep_chain(p: str, section: str, count: int) -> dict:
             "custom_action": "sweep_set_count",
             "custom_action_param": {"count": count},
             "post_delay": 800,
-            "next": [f"{p}_Confirm"],
+            "next": [f"{p}_NotEnough", f"{p}_Confirm"],
+            "on_error": done,
         },
+        # 確定 only while the 速通 dialog itself is showing (never on another popup's 確定)
         f"{p}_Confirm": {
-            "recognition": "OCR",
-            "expected": "^確定$",
-            "roi": [380, 765, 160, 55],
+            "recognition": {
+                "type": "And",
+                "param": {
+                    "all_of": [
+                        {"recognition": "OCR", "expected": "速通次數", "roi": [240, 650, 260, 40]},
+                        {"recognition": "OCR", "expected": "^確定$", "roi": [380, 765, 160, 55]},
+                    ],
+                    "box_index": 1,
+                },
+            },
             "action": "Click",
             "post_delay": 3000,
-            "next": [f"{p}_Result", f"{p}_NotEnough", "[JumpBack]NetworkRetry"],
+            "next": [f"{p}_NotEnough", f"{p}_Result", "[JumpBack]NetworkRetry"],
+            "on_error": done,
         },
         f"{p}_Result": {
             "recognition": {
@@ -82,7 +92,7 @@ def sweep_chain(p: str, section: str, count: int) -> dict:
                 "type": "And",
                 "param": {
                     "all_of": [
-                        {"recognition": "OCR", "expected": "不足", "roi": [60, 380, 600, 350]},
+                        {"recognition": "OCR", "expected": "不足|是否消耗|購買", "roi": [60, 380, 600, 350]},
                         {"recognition": "OCR", "expected": "^取消$", "roi": [60, 600, 600, 300]},
                     ],
                     "box_index": 1,
@@ -97,7 +107,7 @@ def sweep_chain(p: str, section: str, count: int) -> dict:
 
 def story_section(section: str, p: str, hard: bool, count: int) -> dict:
     nodes = {
-        f"Skip_{section}": {"next": [f"{p}_OpenSortie", "[JumpBack]GoHomeStep"]},
+        f"Skip_{section}": {"next": ["[JumpBack]ExitDialogCancel", f"{p}_OpenSortie", "[JumpBack]GoHomeStep"]},
         **open_sortie(p, [f"{p}_Story"]),
         f"{p}_Story": {
             "recognition": "OCR",
@@ -106,6 +116,7 @@ def story_section(section: str, p: str, hard: bool, count: int) -> dict:
             "action": "Click",
             "post_delay": 2500,
             "next": [f"{p}_Goto", f"{p}_Story"],
+            "max_hit": 5,
         },
         f"{p}_Goto": {
             "recognition": "OCR",
@@ -126,7 +137,7 @@ def story_section(section: str, p: str, hard: bool, count: int) -> dict:
 def tour_section() -> dict:
     p = "Tour"
     nodes = {
-        "Skip_Tour": {"next": [f"{p}_OpenSortie", "[JumpBack]GoHomeStep"]},
+        "Skip_Tour": {"next": ["[JumpBack]ExitDialogCancel", f"{p}_OpenSortie", "[JumpBack]GoHomeStep"]},
         **open_sortie(p, [f"{p}_Challenge"]),
         f"{p}_Challenge": {
             "recognition": "OCR",
@@ -135,6 +146,7 @@ def tour_section() -> dict:
             "action": "Click",
             "post_delay": 2500,
             "next": [f"{p}_Workshop", f"{p}_Challenge"],
+            "max_hit": 5,
         },
         f"{p}_Workshop": {
             "recognition": "OCR",
@@ -143,6 +155,7 @@ def tour_section() -> dict:
             "action": "Click",
             "post_delay": 2500,
             "next": [f"{p}_RecommendOn", f"{p}_TurnRecommendOn", f"{p}_Workshop"],
+            "max_hit": 5,
         },
         # 推薦 ON: each folder shows only its highest level
         f"{p}_RecommendOn": {

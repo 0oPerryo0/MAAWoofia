@@ -17,6 +17,7 @@
     },
     "Skip_Main": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "SkipMain_OpenSortie",
             "[JumpBack]GoHomeStep"
         ]
@@ -58,7 +59,8 @@
         "next": [
             "SkipMain_Goto",
             "SkipMain_Story"
-        ]
+        ],
+        "max_hit": 5
     },
     "SkipMain_Goto": {
         "recognition": "OCR",
@@ -124,24 +126,57 @@
         },
         "post_delay": 800,
         "next": [
+            "SkipMain_NotEnough",
             "SkipMain_Confirm"
+        ],
+        "on_error": [
+            "Skip_Hard",
+            "Skip_Tour",
+            "Skip_Leftover",
+            "Skip_Finish"
         ]
     },
     "SkipMain_Confirm": {
-        "recognition": "OCR",
-        "expected": "^確定$",
-        "roi": [
-            380,
-            765,
-            160,
-            55
-        ],
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "速通次數",
+                        "roi": [
+                            240,
+                            650,
+                            260,
+                            40
+                        ]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^確定$",
+                        "roi": [
+                            380,
+                            765,
+                            160,
+                            55
+                        ]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
         "action": "Click",
         "post_delay": 3000,
         "next": [
-            "SkipMain_Result",
             "SkipMain_NotEnough",
+            "SkipMain_Result",
             "[JumpBack]NetworkRetry"
+        ],
+        "on_error": [
+            "Skip_Hard",
+            "Skip_Tour",
+            "Skip_Leftover",
+            "Skip_Finish"
         ]
     },
     "SkipMain_Result": {
@@ -189,7 +224,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "不足",
+                        "expected": "不足|是否消耗|購買",
                         "roi": [
                             60,
                             380,
@@ -222,6 +257,7 @@
     },
     "Skip_Hard": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "SkipHard_OpenSortie",
             "[JumpBack]GoHomeStep"
         ]
@@ -263,7 +299,8 @@
         "next": [
             "SkipHard_Goto",
             "SkipHard_Story"
-        ]
+        ],
+        "max_hit": 5
     },
     "SkipHard_Goto": {
         "recognition": "OCR",
@@ -327,24 +364,55 @@
         },
         "post_delay": 800,
         "next": [
+            "SkipHard_NotEnough",
             "SkipHard_Confirm"
+        ],
+        "on_error": [
+            "Skip_Tour",
+            "Skip_Leftover",
+            "Skip_Finish"
         ]
     },
     "SkipHard_Confirm": {
-        "recognition": "OCR",
-        "expected": "^確定$",
-        "roi": [
-            380,
-            765,
-            160,
-            55
-        ],
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "速通次數",
+                        "roi": [
+                            240,
+                            650,
+                            260,
+                            40
+                        ]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^確定$",
+                        "roi": [
+                            380,
+                            765,
+                            160,
+                            55
+                        ]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
         "action": "Click",
         "post_delay": 3000,
         "next": [
-            "SkipHard_Result",
             "SkipHard_NotEnough",
+            "SkipHard_Result",
             "[JumpBack]NetworkRetry"
+        ],
+        "on_error": [
+            "Skip_Tour",
+            "Skip_Leftover",
+            "Skip_Finish"
         ]
     },
     "SkipHard_Result": {
@@ -391,7 +459,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "不足",
+                        "expected": "不足|是否消耗|購買",
                         "roi": [
                             60,
                             380,
@@ -423,6 +491,7 @@
     },
     "Skip_Tour": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Tour_OpenSortie",
             "[JumpBack]GoHomeStep"
         ]
@@ -464,7 +533,8 @@
         "next": [
             "Tour_Workshop",
             "Tour_Challenge"
-        ]
+        ],
+        "max_hit": 5
     },
     "Tour_Workshop": {
         "recognition": "OCR",
@@ -481,7 +551,8 @@
             "Tour_RecommendOn",
             "Tour_TurnRecommendOn",
             "Tour_Workshop"
-        ]
+        ],
+        "max_hit": 5
     },
     "Tour_RecommendOn": {
         "recognition": "OCR",
@@ -586,24 +657,53 @@
         },
         "post_delay": 800,
         "next": [
+            "Tour_NotEnough",
             "Tour_Confirm"
+        ],
+        "on_error": [
+            "Skip_Leftover",
+            "Skip_Finish"
         ]
     },
     "Tour_Confirm": {
-        "recognition": "OCR",
-        "expected": "^確定$",
-        "roi": [
-            380,
-            765,
-            160,
-            55
-        ],
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "速通次數",
+                        "roi": [
+                            240,
+                            650,
+                            260,
+                            40
+                        ]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^確定$",
+                        "roi": [
+                            380,
+                            765,
+                            160,
+                            55
+                        ]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
         "action": "Click",
         "post_delay": 3000,
         "next": [
-            "Tour_Result",
             "Tour_NotEnough",
+            "Tour_Result",
             "[JumpBack]NetworkRetry"
+        ],
+        "on_error": [
+            "Skip_Leftover",
+            "Skip_Finish"
         ]
     },
     "Tour_Result": {
@@ -649,7 +749,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "不足",
+                        "expected": "不足|是否消耗|購買",
                         "roi": [
                             60,
                             380,
@@ -680,6 +780,7 @@
     },
     "Skip_Leftover": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "SkipLeft_OpenSortie",
             "[JumpBack]GoHomeStep"
         ],
@@ -722,7 +823,8 @@
         "next": [
             "SkipLeft_Goto",
             "SkipLeft_Story"
-        ]
+        ],
+        "max_hit": 5
     },
     "SkipLeft_Goto": {
         "recognition": "OCR",
@@ -782,24 +884,51 @@
         },
         "post_delay": 800,
         "next": [
+            "SkipLeft_NotEnough",
             "SkipLeft_Confirm"
+        ],
+        "on_error": [
+            "Skip_Finish"
         ]
     },
     "SkipLeft_Confirm": {
-        "recognition": "OCR",
-        "expected": "^確定$",
-        "roi": [
-            380,
-            765,
-            160,
-            55
-        ],
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "速通次數",
+                        "roi": [
+                            240,
+                            650,
+                            260,
+                            40
+                        ]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^確定$",
+                        "roi": [
+                            380,
+                            765,
+                            160,
+                            55
+                        ]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
         "action": "Click",
         "post_delay": 3000,
         "next": [
-            "SkipLeft_Result",
             "SkipLeft_NotEnough",
+            "SkipLeft_Result",
             "[JumpBack]NetworkRetry"
+        ],
+        "on_error": [
+            "Skip_Finish"
         ]
     },
     "SkipLeft_Result": {
@@ -844,7 +973,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "不足",
+                        "expected": "不足|是否消耗|購買",
                         "roi": [
                             60,
                             380,

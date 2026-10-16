@@ -21,7 +21,7 @@ def test_stage_matches_exact_label():
 
 
 def test_stage_matches_hard_prefix():
-    assert stage_matches("困難11-4", (11, 4))
+    assert stage_matches("困難11-4", (11, 4), hard=True)
 
 
 def test_stage_does_not_match_longer_number():
@@ -70,3 +70,18 @@ def test_is_chapter_title_box():
 
     assert is_chapter_title((217, 614, 332, 103))
     assert not is_chapter_title((502, 680, 23, 17))  # star count
+
+
+def test_count_plan_caps_blind_presses():
+    from stage_nav import MAX_PRESSES, count_plan
+
+    assert count_plan(999) == ("plus", MAX_PRESSES)
+
+
+def test_hard_stage_requires_hard_prefix():
+    assert stage_matches("困難11-4", (11, 4), hard=True)
+    assert not stage_matches("11-4", (11, 4), hard=True)
+
+
+def test_normal_stage_rejects_hard_label():
+    assert not stage_matches("困難11-4", (11, 4), hard=False)

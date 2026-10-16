@@ -14,5 +14,11 @@
         "recognition": "OCR",
         "roi": [195, 580, 110, 85],
         "only_rec": true
+    },
+    // sweep_set_count 每次點擊前確認仍在速通視窗
+    "StageNav_SweepDialog": {
+        "recognition": "OCR",
+        "expected": "速通次數",
+        "roi": [240, 650, 260, 40]
     }
 }

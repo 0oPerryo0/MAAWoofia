@@ -3,6 +3,7 @@
     // 每週任務：一鍵領取為黃色時才領。
     "DailyMissions": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Missions_Open",
             "[JumpBack]GoHomeStep"
         ]

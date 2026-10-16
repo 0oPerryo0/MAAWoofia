@@ -2,6 +2,7 @@
     // 市集 → 每日市集：以 FREE 角標定位，且角標旁「限購」剩餘次數 ≥1 才點；購買視窗再確認總價為 0
     "ShopFree": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "ShopFree_OpenMarket",
             "[JumpBack]GoHomeStep"
         ]
@@ -81,12 +82,11 @@
                         "expected": "購買數量",
                         "roi": [200, 655, 320, 50]
                     },
-                    // 只辨識數字本身（虹石圖示會被誤讀），0 可能被讀成 o
+                    // 整個價格欄只能有一個 0（虹石圖示常被讀成「•」，0 可能讀成 o）；10、100 等不符合
                     {
                         "recognition": "OCR",
-                        "expected": "^[0oO]$",
-                        "roi": [464, 752, 30, 32],
-                        "only_rec": true
+                        "expected": "^[^0-9A-Za-z]*[0oO]$",
+                        "roi": [425, 745, 130, 45]
                     }
                 ]
             }

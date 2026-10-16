@@ -25,8 +25,11 @@ def parse_stage(text: str) -> tuple[int, int]:
     return int(match.group(1)), int(match.group(2))
 
 
-def stage_matches(label: str, stage: tuple[int, int]) -> bool:
-    return re.search(rf"(?<![\d-]){stage[0]}-{stage[1]}$", label.strip()) is not None
+def stage_matches(label: str, stage: tuple[int, int], hard: bool = False) -> bool:
+    label = label.strip()
+    if ("困難" in label) != hard:
+        return False
+    return re.search(rf"(?<![\d-]){stage[0]}-{stage[1]}$", label) is not None
 
 
 def chapter_matches(label: str, chapter: int) -> bool:
@@ -81,12 +84,10 @@ class GotoStage(CustomAction):
             return False
         hard = bool(param.get("hard", False))
 
-        image = context.tasker.controller.post_screencap().wait().get()
-        mode = context.run_recognition(MODE_ROI_NODE, image)
-        mode_text = mode.best_result.text if mode and mode.hit else ""
-        if ("困難" in mode_text) != hard:
-            context.tasker.controller.post_click(*MODE_TOGGLE).wait()
-            time.sleep(1.5)
+        print(f"goto_stage: stage={stage[0]}-{stage[1]} hard={hard}", flush=True)
+        if not self._set_mode(context, hard):
+            print("goto_stage: could not switch 普通/困難", flush=True)
+            return False
 
         time.sleep(SETTLE_SECONDS)
         for attempt in range(MAX_CHAPTER_SWIPES + 1):
@@ -105,7 +106,7 @@ class GotoStage(CustomAction):
             return False
 
         for _ in range(MAX_STAGE_SWIPES):
-            hits = [r for r in _ocr(context) if stage_matches(r.text, stage)]
+            hits = [r for r in _ocr(context) if stage_matches(r.text, stage, hard)]
             if hits:
                 context.tasker.controller.post_click(*_center(hits[0].box)).wait()
                 time.sleep(2)
@@ -115,15 +116,29 @@ class GotoStage(CustomAction):
         print(f"goto_stage: stage {stage[0]}-{stage[1]} not found", flush=True)
         return False
 
+    @staticmethod
+    def _set_mode(context: Context, hard: bool) -> bool:
+        """Toggle the bottom 普通/困難 switch until OCR confirms the wanted mode."""
+        for _ in range(3):
+            image = context.tasker.controller.post_screencap().wait().get()
+            mode = context.run_recognition(MODE_ROI_NODE, image)
+            if mode and mode.hit and ("困難" in mode.best_result.text) == hard:
+                return True
+            context.tasker.controller.post_click(*MODE_TOGGLE).wait()
+            time.sleep(1.5)
+        return False
+
 
 # 速通 dialog: + and max buttons right of the 速通次數 slider
 SWEEP_PLUS = (532, 708)
 SWEEP_MAX = (582, 708)
+SWEEP_DIALOG_NODE = "StageNav_SweepDialog"
+MAX_PRESSES = 20  # daily caps are 16 (energy) / 3 (hard, workshop); never tap blindly beyond this
 
 
 def count_plan(count: int) -> tuple[str, int]:
     """count <= 0 means as many as possible."""
-    return ("max", 1) if count <= 0 else ("plus", count - 1)
+    return ("max", 1) if count <= 0 else ("plus", min(count - 1, MAX_PRESSES))
 
 
 @AgentServer.custom_action("sweep_set_count")
@@ -134,9 +149,16 @@ class SweepSetCount(CustomAction):
             count = int(param.get("count", 1))
         except (TypeError, ValueError):
             count = 1
+        print(f"sweep_set_count: count={count}", flush=True)
         button, presses = count_plan(count)
         target = SWEEP_MAX if button == "max" else SWEEP_PLUS
         for _ in range(presses):
+            # only ever tap while the 速通 dialog is on screen (a popup may have replaced it)
+            image = context.tasker.controller.post_screencap().wait().get()
+            dialog = context.run_recognition(SWEEP_DIALOG_NODE, image)
+            if not (dialog and dialog.hit):
+                print("sweep_set_count: 速通 dialog gone, stopping", flush=True)
+                return False
             context.tasker.controller.post_click(*target).wait()
             time.sleep(0.3)
         return True

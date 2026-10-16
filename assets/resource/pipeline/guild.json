@@ -2,6 +2,7 @@
     // 進入公會即自動簽到（跳出公會簽到視窗）；公會任務以一鍵領取，按鈕為灰色時代表尚無可領（例如簽到人數不足）
     "Guild": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Guild_Open",
             "[JumpBack]GoHomeStep"
         ]
@@ -33,6 +34,7 @@
         "target": [285, 800, 150, 48],
         "post_delay": 1500,
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "Guild_OpenMissions",
             "[JumpBack]ClosePopup"
         ]

@@ -61,7 +61,10 @@ def run_task(entry: str, use_agent: bool = True, override: dict | None = None) -
         if client is not None:
             client.disconnect()
         if agent_proc is not None:
-            agent_proc.wait(timeout=10)
+            try:
+                agent_proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                agent_proc.kill()
 
 
 def main() -> None:

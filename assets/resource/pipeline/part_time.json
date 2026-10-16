@@ -2,6 +2,7 @@
     // 打工：一鍵領取（黃色）→ 一鍵打工（橘色）→ 確認視窗「打工」。兩鍵皆灰色 = 完成。
     "PartTime": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "PartTime_Open",
             "[JumpBack]GoHomeStep"
         ]

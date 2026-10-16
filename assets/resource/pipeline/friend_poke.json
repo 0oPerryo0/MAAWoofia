@@ -2,6 +2,7 @@
     // 好友 → 追蹤清單：每位好友每日可頂一下一次；重複點擊無害，因此全部點一遍並捲到底
     "FriendPoke": {
         "next": [
+            "[JumpBack]ExitDialogCancel",
             "FriendPoke_Open",
             "[JumpBack]GoHomeStep"
         ]
@@ -18,6 +19,7 @@
         "action": "Click",
         "target": [10, 345, 65, 75],
         "post_delay": 2500,
+        "max_hit": 5,
         "next": [
             "FriendPoke_List",
             "FriendPoke_Open",
