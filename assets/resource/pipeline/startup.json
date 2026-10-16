@@ -1,0 +1,57 @@
+{
+    "StartUp": {
+        "action": "StartApp",
+        "package": "com.nightfun.xxlwoofia",
+        // 正常啟動 60 秒內應看到標題或主畫面；否則可能停在子選單，改用返回鍵回主畫面
+        "timeout": 60000,
+        "on_error": [
+            "StartUp_Recover"
+        ],
+        "next": [
+            "HomeAnchor",
+            "StartUp_TapToStart",
+            "StartUp_SkipIntro",
+            "[JumpBack]ExitDialogCancel",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "StartUp_TapToStart": {
+        "recognition": "OCR",
+        "expected": "TAP TO START",
+        "roi": [100, 1120, 520, 120],
+        "action": "Click",
+        "post_delay": 2000,
+        "timeout": 180000,
+        "next": [
+            "HomeAnchor",
+            "StartUp_TapToStart",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "StartUp_SkipIntro": {
+        "recognition": "OCR",
+        "expected": "SKIP",
+        "roi": [0, 60, 180, 70],
+        "action": "Click",
+        "post_delay": 1000,
+        "timeout": 180000,
+        "next": [
+            "HomeAnchor",
+            "StartUp_TapToStart",
+            "StartUp_SkipIntro",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "StartUp_Recover": {
+        "timeout": 120000,
+        "next": [
+            "HomeAnchor",
+            "StartUp_TapToStart",
+            "StartUp_SkipIntro",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}

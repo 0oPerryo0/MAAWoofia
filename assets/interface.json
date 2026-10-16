@@ -27,6 +27,13 @@
             "./agent/main.py"
         ]
     },
-    "task": [],
+    "task": [
+        {
+            "name": "StartUp",
+            "label": "啟動遊戲",
+            "entry": "StartUp",
+            "default_check": true
+        }
+    ],
     "option": {}
 }

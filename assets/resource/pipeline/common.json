@@ -1,1 +1,67 @@
-{}
+{
+    // 主畫面判定：底部「出擊」與「培慾」同時存在
+    "HomeAnchor": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "出擊",
+                        "roi": [280, 1110, 160, 90]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "培慾",
+                        "roi": [100, 1150, 200, 90]
+                    }
+                ]
+            }
+        }
+    },
+    // 用法：在 next 中寫 "[JumpBack]GoHomeStep"，每次執行一步返回動作後回到原列表重新判斷
+    "GoHomeStep": {
+        "next": [
+            "ExitDialogCancel",
+            "ClosePopup",
+            "NetworkRetry",
+            "PressBack"
+        ]
+    },
+    // 主畫面按返回鍵會跳出「是否要回到標題畫面？」，一律取消
+    "ExitDialogCancel": {
+        "recognition": "OCR",
+        "expected": [
+            "回到標題畫面",
+            "離開遊戲"
+        ],
+        "roi": [120, 540, 480, 140],
+        "action": "Click",
+        "target": [190, 700, 140, 50],
+        "post_delay": 1000
+    },
+    // 已知的可關閉彈窗，遇到新彈窗時在此擴充
+    "ClosePopup": {
+        "recognition": "OCR",
+        "expected": [
+            "點擊.*關閉",
+            "點擊.*繼續"
+        ],
+        "roi": [0, 800, 720, 480],
+        "action": "Click",
+        "post_delay": 1000
+    },
+    "NetworkRetry": {
+        "recognition": "OCR",
+        "expected": "^重試$",
+        "roi": [100, 500, 520, 500],
+        "action": "Click",
+        "post_delay": 2000
+    },
+    "PressBack": {
+        "action": "ClickKey",
+        "key": 4,
+        "post_delay": 2500,
+        "max_hit": 15
+    }
+}
