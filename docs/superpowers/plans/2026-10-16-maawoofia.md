@@ -228,6 +228,14 @@ def test_unknown_character_returns_none(): assert pick_card("小狼", ["釣魚"]
 - [ ] **Step 2:** Extra case: nothing finished and no idle slot → SUCCEEDED without changes.
 - [ ] **Step 3:** Commit — `feat: PartTime task`.
 
+### Task 14: FriendPoke (optional, added at user request)
+
+**Files:** `pipeline/friend_poke.json`, `docs/flows/friend_poke.md`; interface task `FriendPoke`, label `好友戳一戳`, `default_check: false`.
+
+- [ ] **Step 1:** Mapping Procedure: open 好友 from the home left bar, poke every friend in the list (scroll until the end), go home.
+- [ ] **Step 2:** Extra case: all friends already poked → SUCCEEDED without taps.
+- [ ] **Step 3:** Commit — `feat: FriendPoke task`.
+
 ### Task 12: Full-routine run and release prep
 
 **Files:** Modify `assets/interface.json` (task order = spec §6, `default_check` true for tasks 1–9), `README.md` (setup: BlueStacks settings, `pip install -r requirements.txt`, Python required for the agent).

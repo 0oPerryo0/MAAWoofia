@@ -112,6 +112,7 @@ Every task begins with `GoHome` (§7). Each is a separate checkbox in the UI.
 | 8 | **FreeGacha** | Open gacha, do the daily free pull | Pull done or no free pull available | — |
 | 9 | **DailyMissions** | Claim daily missions, then the 100-point daily chest; claim the weekly chest only if claimable | Nothing claimable left | — |
 | 11 | **PartTime** | Open 打工, claim finished part-time jobs, send characters out again | Nothing to claim and no idle slot left | — (added 2026-10-17 at user request) |
+| 12 | **FriendPoke** (optional, off by default) | Open 好友, poke every friend | Every friend poked | — (added 2026-10-17 at user request) |
 | 10 | **StageSkip** | Ticket-skip farming in the chosen categories | Target count reached **or** tickets/stamina exhausted | `categories`: any of Event / Hard / Coin / EXP; per category a stage choice and `count` (number or "max") |
 
 ### 6.1 Interest-guessing game
