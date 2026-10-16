@@ -5,6 +5,7 @@ from maa.toolkit import Toolkit
 
 import interest_guess  # noqa: F401  registers custom actions
 import stage_nav  # noqa: F401  registers custom actions
+import friend_poke  # noqa: F401  registers custom actions
 
 
 def main():

@@ -1,0 +1,43 @@
+{
+    // 好友 → 追蹤清單：每位好友每日可頂一下一次；重複點擊無害，因此全部點一遍並捲到底
+    "FriendPoke": {
+        "next": [
+            "FriendPoke_Open",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "FriendPoke_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor"
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [10, 345, 65, 75],
+        "post_delay": 2500,
+        "next": [
+            "FriendPoke_List",
+            "FriendPoke_Open",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "FriendPoke_List": {
+        "recognition": "OCR",
+        "expected": "FRIENDS",
+        "roi": [70, 35, 220, 55],
+        "action": "Custom",
+        "custom_action": "poke_all_friends",
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "FriendPoke_OCR": {
+        "recognition": "OCR",
+        "roi": [0, 180, 720, 920]
+    }
+}

@@ -95,6 +95,12 @@
             ]
         },
         {
+            "name": "FriendPoke",
+            "label": "好友頂一下（選用）",
+            "entry": "FriendPoke",
+            "default_check": false
+        },
+        {
             "name": "DailyMissions",
             "label": "領取每日／每週任務（請放在最後）",
             "entry": "DailyMissions",
