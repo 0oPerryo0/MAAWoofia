@@ -1,0 +1,140 @@
+{
+    // 打工：一鍵領取（黃色）→ 一鍵打工（橘色）→ 確認視窗「打工」。兩鍵皆灰色 = 完成。
+    "PartTime": {
+        "next": [
+            "PartTime_Open",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "PartTime_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor",
+                    {
+                        "recognition": "OCR",
+                        "expected": "^打工$",
+                        "roi": [500, 250, 220, 420]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [0, -30, 0, 0],
+        "post_delay": 2000,
+        "next": [
+            "PartTime_Claim",
+            "PartTime_Dispatch",
+            "PartTime_Done",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "PartTime_Claim": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "鍵領取",
+                        "roi": [370, 1180, 170, 60]
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [370, 1180, 170, 60],
+                        "lower": [220, 190, 30],
+                        "upper": [255, 240, 110],
+                        "count": 1500
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "PartTime_Reward",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "PartTime_Reward": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 840, 720, 80],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "PartTime_Claim",
+            "PartTime_Dispatch",
+            "PartTime_Done",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    "PartTime_Dispatch": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "鍵打工",
+                        "roi": [185, 1180, 170, 60]
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [185, 1180, 170, 60],
+                        "lower": [220, 100, 10],
+                        "upper": [255, 150, 70],
+                        "count": 1500
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "PartTime_DispatchConfirm",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    // 一鍵打工視窗：遊戲已自動配好夥伴，直接按「打工」
+    "PartTime_DispatchConfirm": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "一鍵打工",
+                        "roi": [240, 135, 240, 60]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^打工$",
+                        "roi": [385, 1010, 150, 50]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "post_delay": 2500,
+        "next": [
+            "PartTime_Claim",
+            "PartTime_Done",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "PartTime_Done": {
+        "recognition": "OCR",
+        "expected": "鍵打工",
+        "roi": [185, 1180, 170, 60],
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}

@@ -65,6 +65,12 @@
             "default_check": true
         },
         {
+            "name": "PartTime",
+            "label": "打工領取與派遣",
+            "entry": "PartTime",
+            "default_check": true
+        },
+        {
             "name": "DailyMissions",
             "label": "領取每日／每週任務（請放在最後）",
             "entry": "DailyMissions",
