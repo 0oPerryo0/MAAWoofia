@@ -51,6 +51,12 @@
             "label": "培慾契合度結算",
             "entry": "AffectionClaim",
             "default_check": true
+        },
+        {
+            "name": "Guild",
+            "label": "公會簽到與任務",
+            "entry": "Guild",
+            "default_check": true
         }
     ],
     "option": {}

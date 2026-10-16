@@ -1,0 +1,101 @@
+{
+    // 進入公會即自動簽到（跳出公會簽到視窗）；公會任務以一鍵領取，按鈕為灰色時代表尚無可領（例如簽到人數不足）
+    "Guild": {
+        "next": [
+            "Guild_Open",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "Guild_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor"
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [110, 1050, 170, 65],
+        "post_delay": 2500,
+        "next": [
+            "Guild_CheckInPopup",
+            "Guild_OpenMissions",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Guild_CheckInPopup": {
+        "recognition": "OCR",
+        "expected": "獎勵已放入背包",
+        "roi": [180, 745, 360, 60],
+        "action": "Click",
+        "target": [285, 800, 150, 48],
+        "post_delay": 1500,
+        "next": [
+            "Guild_OpenMissions",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    "Guild_OpenMissions": {
+        "recognition": "OCR",
+        "expected": "公會任務",
+        "roi": [430, 320, 160, 55],
+        "action": "Click",
+        "target_offset": [0, -50, 0, 0],
+        "post_delay": 2000,
+        "next": [
+            "Guild_ClaimAll",
+            "Guild_NothingToClaim",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Guild_ClaimAll": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "鍵領取",
+                        "roi": [275, 1180, 170, 60]
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [275, 1180, 170, 60],
+                        "lower": [220, 190, 30],
+                        "upper": [255, 240, 110],
+                        "count": 1500
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "Guild_Reward",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Guild_Reward": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 840, 720, 80],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Guild_NothingToClaim",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    "Guild_NothingToClaim": {
+        "recognition": "OCR",
+        "expected": "鍵領取",
+        "roi": [275, 1180, 170, 60],
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}
