@@ -4,6 +4,8 @@
     "name": "MaaWoofia",
     "description": "XXL Woofia 每日自動化小幫手，基於 MaaFramework。",
     "license": "MIT",
+    // 填寫專案位址可啟用 UI 的更新檢查
+    "github": "https://github.com/0oPerryo0/MAAWoofia",
     "welcome": "歡迎使用 MaaWoofia！請先在模擬器設定中開啟 ADB，並將解析度設為 1280x720（遊戲為直向畫面）。",
     "version": "0.0.1",
     "controller": [
