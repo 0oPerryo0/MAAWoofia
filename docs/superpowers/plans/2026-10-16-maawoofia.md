@@ -220,6 +220,14 @@ def test_unknown_character_returns_none(): assert pick_card("小狼", ["釣魚"]
 - [ ] **Step 2:** Extra cases: count 1 → exactly one skip; count 999 → runs until out; the "buy stamina/tickets?" dialog is cancelled and the task SUCCEEDED (Review Focus 4).
 - [ ] **Step 3:** Commit — `feat: StageSkip task`.
 
+### Task 13: PartTime (added at user request)
+
+**Files:** `pipeline/part_time.json`, `image/part_time/*`, `docs/flows/part_time.md`; interface task `PartTime`, label `打工領取與派遣`.
+
+- [ ] **Step 1:** Mapping Procedure: open 打工 from home, claim every finished job, send characters to every idle slot (user decides how characters are chosen).
+- [ ] **Step 2:** Extra case: nothing finished and no idle slot → SUCCEEDED without changes.
+- [ ] **Step 3:** Commit — `feat: PartTime task`.
+
 ### Task 12: Full-routine run and release prep
 
 **Files:** Modify `assets/interface.json` (task order = spec §6, `default_check` true for tasks 1–9), `README.md` (setup: BlueStacks settings, `pip install -r requirements.txt`, Python required for the agent).

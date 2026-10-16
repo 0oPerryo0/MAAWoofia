@@ -39,6 +39,12 @@
             "label": "香腸伯體力（擲骰）",
             "entry": "SausageStamina",
             "default_check": true
+        },
+        {
+            "name": "ShopFree",
+            "label": "市集免費領取",
+            "entry": "ShopFree",
+            "default_check": true
         }
     ],
     "option": {}
