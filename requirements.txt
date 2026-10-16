@@ -2,3 +2,4 @@ maafw==5.14.3
 json-with-comments
 pillow
 pytest
+UnityPy
