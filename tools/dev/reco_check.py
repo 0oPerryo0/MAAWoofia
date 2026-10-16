@@ -1,7 +1,8 @@
 """Replay a saved screenshot through one pipeline node: does it hit, and where would it click?
 
-Usage: python tools/dev/reco_check.py <NodeName> <screenshot.png>
+Usage: python tools/dev/reco_check.py <NodeName> <screenshot.png> [--reco-only]
 The node runs with its `next` cleared, against a fake controller that always returns the image.
+--reco-only replaces the action with DoNothing (for Custom actions that need the agent).
 """
 
 import sys
@@ -45,10 +46,11 @@ class ImageController(CustomController):
 
 
 def main() -> None:
-    if len(sys.argv) != 3:
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if len(args) != 2:
         print(__doc__)
         sys.exit(1)
-    node, shot = sys.argv[1], sys.argv[2]
+    node, shot = args
     Toolkit.init_option(ROOT / "dev")
     image = np.array(Image.open(shot).convert("RGB"))[:, :, ::-1].copy()  # BGR
     ctrl = ImageController(image)
@@ -58,6 +60,8 @@ def main() -> None:
     tasker = Tasker()
     tasker.bind(resource, ctrl)
     override = {node: {"next": [], "timeout": 1000, "post_delay": 0}}
+    if "--reco-only" in sys.argv:
+        override[node]["action"] = "DoNothing"
     ok = tasker.post_task(node, override).wait().succeeded
     print(f"{node}: {'HIT' if ok else 'MISS'} clicks={ctrl.clicks}")
     sys.exit(0 if ok else 1)

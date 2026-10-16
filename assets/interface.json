@@ -71,11 +71,1093 @@
             "default_check": true
         },
         {
+            "name": "AffectionBonus",
+            "label": "培慾額外好感（進去玩他）",
+            "entry": "AffectionBonus",
+            "default_check": true,
+            "option": [
+                "bonus_slot",
+                "bonus_character"
+            ]
+        },
+        {
             "name": "DailyMissions",
             "label": "領取每日／每週任務（請放在最後）",
             "entry": "DailyMissions",
             "default_check": true
         }
     ],
-    "option": {}
+    "option": {
+        "bonus_slot": {
+            "type": "select",
+            "label": "額外好感房間",
+            "cases": [
+                {
+                    "name": "第 1 間",
+                    "pipeline_override": {
+                        "Bonus_EnterSlot": {
+                            "roi": [
+                                540,
+                                375,
+                                180,
+                                60
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "第 2 間",
+                    "pipeline_override": {
+                        "Bonus_EnterSlot": {
+                            "roi": [
+                                540,
+                                697,
+                                180,
+                                60
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "第 3 間（月卡）",
+                    "pipeline_override": {
+                        "Bonus_EnterSlot": {
+                            "roi": [
+                                540,
+                                1019,
+                                180,
+                                60
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "bonus_character": {
+            "type": "select",
+            "label": "該房間的角色（用於選正確卡牌）",
+            "cases": [
+                {
+                    "name": "未指定（只看黃框）",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": ""
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": ""
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": ""
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "異世之刃無名",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "異世之刃無名"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "異世之刃無名"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "異世之刃無名"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "銀煌鬥神白威",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "銀煌鬥神白威"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "銀煌鬥神白威"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "銀煌鬥神白威"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "申里狼",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "申里狼"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "申里狼"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "申里狼"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "卡‧拉特",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "卡‧拉特"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "卡‧拉特"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "卡‧拉特"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "絢",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "絢"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "絢"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "絢"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "桀特",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "桀特"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "桀特"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "桀特"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "奧雷姆",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "奧雷姆"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "奧雷姆"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "奧雷姆"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "孟叔",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "孟叔"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "孟叔"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "孟叔"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "泉之助",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "泉之助"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "泉之助"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "泉之助"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "任富言",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "任富言"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "任富言"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "任富言"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "噴射布萊克",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "噴射布萊克"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "噴射布萊克"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "噴射布萊克"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "塔蘭迪歐",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "塔蘭迪歐"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "塔蘭迪歐"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "塔蘭迪歐"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "歡水的波勒佩爾",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "歡水的波勒佩爾"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "歡水的波勒佩爾"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "歡水的波勒佩爾"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "卞宇奎",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "卞宇奎"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "卞宇奎"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "卞宇奎"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "代號B",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "代號B"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "代號B"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "代號B"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "金鳴連駕",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "金鳴連駕"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "金鳴連駕"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "金鳴連駕"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "答揚速亦",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "答揚速亦"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "答揚速亦"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "答揚速亦"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "巴德",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "巴德"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "巴德"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "巴德"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "林煜嶄",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "林煜嶄"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "林煜嶄"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "林煜嶄"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "小山田又彌",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "小山田又彌"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "小山田又彌"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "小山田又彌"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "浪尖奔牛達拉萬",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "浪尖奔牛達拉萬"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "浪尖奔牛達拉萬"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "浪尖奔牛達拉萬"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "里歐",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "里歐"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "里歐"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "里歐"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "庫克萊恩",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "庫克萊恩"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "庫克萊恩"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "庫克萊恩"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "哈尼耶",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "哈尼耶"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "哈尼耶"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "哈尼耶"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "鄧肯‧查拉斯",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "鄧肯‧查拉斯"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "鄧肯‧查拉斯"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "鄧肯‧查拉斯"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "貪狼",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "貪狼"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "貪狼"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "貪狼"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "瑞卡諾",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "瑞卡諾"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "瑞卡諾"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "瑞卡諾"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "渡邊一羽",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "渡邊一羽"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "渡邊一羽"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "渡邊一羽"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "赤鬼淳史",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "赤鬼淳史"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "赤鬼淳史"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "赤鬼淳史"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "柴彥",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "柴彥"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "柴彥"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "柴彥"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "達拉萬",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "達拉萬"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "達拉萬"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "達拉萬"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "崔鼬玄",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "崔鼬玄"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "崔鼬玄"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "崔鼬玄"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "法米多",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "法米多"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "法米多"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "法米多"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "蒼嵐",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "蒼嵐"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "蒼嵐"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "蒼嵐"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "旭影",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "旭影"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "旭影"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "旭影"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "雲山",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "雲山"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "雲山"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "雲山"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "奇里葉",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "奇里葉"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "奇里葉"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "奇里葉"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "蒙奎",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "蒙奎"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "蒙奎"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "蒙奎"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "彼亞諾斯",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "彼亞諾斯"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "彼亞諾斯"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "彼亞諾斯"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "旺",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "旺"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "旺"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "旺"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "卡夫卡",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "卡夫卡"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "卡夫卡"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "卡夫卡"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "魯特尼希",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "魯特尼希"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "魯特尼希"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "魯特尼希"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "莫伊魯",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "莫伊魯"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "莫伊魯"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "莫伊魯"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "透明人",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "透明人"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "透明人"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "透明人"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "卡托斯",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "卡托斯"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "卡托斯"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "卡托斯"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "崔鼬熙",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "崔鼬熙"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "崔鼬熙"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "崔鼬熙"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "谷勒塔",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "谷勒塔"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "谷勒塔"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "谷勒塔"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "五峰山君李泰虎",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "五峰山君李泰虎"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "五峰山君李泰虎"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "五峰山君李泰虎"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "降祐之夕歲崇",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "降祐之夕歲崇"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "降祐之夕歲崇"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "降祐之夕歲崇"
+                            }
+                        }
+                    }
+                },
+                {
+                    "name": "冥界衛犬阿努比洛斯",
+                    "pipeline_override": {
+                        "Bonus_Round1": {
+                            "custom_action_param": {
+                                "character": "冥界衛犬阿努比洛斯"
+                            }
+                        },
+                        "Bonus_Round2": {
+                            "custom_action_param": {
+                                "character": "冥界衛犬阿努比洛斯"
+                            }
+                        },
+                        "Bonus_Round3": {
+                            "custom_action_param": {
+                                "character": "冥界衛犬阿努比洛斯"
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
 }

@@ -80,5 +80,194 @@
             "HomeAnchor",
             "[JumpBack]GoHomeStep"
         ]
+    },
+    // ===== 培慾額外好感（進去玩他）=====
+    // 每日一次免費；之後遊戲會跳「次數不足，是否直接消耗…」→ 一律取消。
+    // 卡牌遊戲固定 3 回合；選牌策略見 agent/interest_guess.py（對照表 → 黃框 → 中間未知牌）。
+    "AffectionBonus": {
+        "next": [
+            "Bonus_OpenRoom",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "Bonus_OpenRoom": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor"
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [110, 1160, 170, 70],
+        "post_delay": 2000,
+        "next": [
+            "Bonus_EnterSlot",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    // 房間位置由選項 bonus_slot 覆寫 roi（1: y≈405、2: y≈727、3（月卡）: y≈1049）
+    "Bonus_EnterSlot": {
+        "recognition": "OCR",
+        "expected": "進去玩他",
+        "roi": [540, 375, 180, 60],
+        "action": "Click",
+        "post_delay": 2500,
+        "next": [
+            "Bonus_Draw",
+            "Bonus_Accelerate",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    // 造型未解鎖：抽牌 → 卡牌遊戲
+    "Bonus_Draw": {
+        "recognition": "OCR",
+        "expected": "^抽牌$",
+        "roi": [280, 1185, 120, 55],
+        "action": "Click",
+        "post_delay": 2500,
+        "next": [
+            "Bonus_NoFreeUse",
+            "Bonus_Round1",
+            "[JumpBack]Bonus_Advance"
+        ]
+    },
+    // 造型已解鎖：加速培慾直接給好感
+    "Bonus_Accelerate": {
+        "recognition": "OCR",
+        "expected": "加速培慾",
+        "roi": [130, 1185, 330, 55],
+        "action": "Click",
+        "post_delay": 3000,
+        "next": [
+            "Bonus_NoFreeUse",
+            "Bonus_Finished",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]Bonus_Advance"
+        ]
+    },
+    "Bonus_NoFreeUse": {
+        "recognition": "OCR",
+        "expected": "次數不足",
+        "roi": [100, 560, 520, 70],
+        "action": "Click",
+        "target": [190, 695, 140, 50],
+        "post_delay": 1500,
+        "next": [
+            "Bonus_Finished"
+        ]
+    },
+    "Bonus_Round1": {
+        "recognition": "OCR",
+        "expected": "第.?1.?回合",
+        "roi": [230, 440, 260, 90],
+        "action": "Custom",
+        "custom_action": "interest_round",
+        "custom_action_param": {
+            "character": ""
+        },
+        "post_delay": 1500,
+        "next": [
+            "Bonus_SkipAnim1"
+        ]
+    },
+    // 選牌後點一下跳過動畫
+    "Bonus_SkipAnim1": {
+        "action": "Click",
+        "target": [330, 280, 60, 40],
+        "post_delay": 1500,
+        "next": [
+            "Bonus_Round2",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]Bonus_Advance"
+        ]
+    },
+    "Bonus_Round2": {
+        "recognition": "OCR",
+        "expected": "第.?2.?回合",
+        "roi": [230, 440, 260, 90],
+        "action": "Custom",
+        "custom_action": "interest_round",
+        "custom_action_param": {
+            "character": ""
+        },
+        "post_delay": 1500,
+        "next": [
+            "Bonus_SkipAnim2"
+        ]
+    },
+    // 選牌後點一下跳過動畫
+    "Bonus_SkipAnim2": {
+        "action": "Click",
+        "target": [330, 280, 60, 40],
+        "post_delay": 1500,
+        "next": [
+            "Bonus_Round3",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]Bonus_Advance"
+        ]
+    },
+    "Bonus_Round3": {
+        "recognition": "OCR",
+        "expected": "第.?3.?回合",
+        "roi": [230, 440, 260, 90],
+        "action": "Custom",
+        "custom_action": "interest_round",
+        "custom_action_param": {
+            "character": ""
+        },
+        "post_delay": 1500,
+        "next": [
+            "Bonus_SkipAnim3"
+        ]
+    },
+    // 選牌後點一下跳過動畫
+    "Bonus_SkipAnim3": {
+        "action": "Click",
+        "target": [330, 280, 60, 40],
+        "post_delay": 1500,
+        "next": [
+            "Bonus_Finished",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]Bonus_Advance"
+        ]
+    },
+    // 劇情對話、等級提升、CG 解鎖：點畫面上方推進（該處於卡牌遊戲中無作用）
+    "Bonus_Advance": {
+        "action": "Click",
+        "target": [330, 280, 60, 40],
+        "post_delay": 1500,
+        "max_hit": 40
+    },
+    // 回到房間待機畫面 = 本次結束
+    "Bonus_Finished": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "^卡",
+                        "roi": [10, 895, 130, 45]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "抽牌|加速培慾",
+                        "roi": [130, 1185, 330, 55]
+                    }
+                ]
+            }
+        },
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    // 供 agent 的 interest_round 讀取目前選中卡牌名稱
+    "InterestGuess_CardName": {
+        "recognition": "OCR",
+        "roi": [80, 730, 400, 45]
     }
 }

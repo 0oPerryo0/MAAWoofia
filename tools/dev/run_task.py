@@ -1,9 +1,10 @@
 """Run one pipeline entry against the emulator, with the Python agent attached.
 
-Usage: python tools/dev/run_task.py <Entry> [--no-agent]
+Usage: python tools/dev/run_task.py <Entry> [--no-agent] [--override <json>]
 Logs and on-error screenshots go to dev/debug/.
 """
 
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -19,7 +20,7 @@ from adb import adb_path, adb_serial
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def run_task(entry: str, use_agent: bool = True) -> bool:
+def run_task(entry: str, use_agent: bool = True, override: dict | None = None) -> bool:
     Toolkit.init_option(ROOT / "dev")
 
     resource = Resource()
@@ -52,7 +53,7 @@ def run_task(entry: str, use_agent: bool = True) -> bool:
         if not tasker.inited:
             print("tasker failed to initialize")
             return False
-        return tasker.post_task(entry).wait().succeeded
+        return tasker.post_task(entry, override or {}).wait().succeeded
     finally:
         if client is not None:
             client.disconnect()
@@ -61,11 +62,17 @@ def run_task(entry: str, use_agent: bool = True) -> bool:
 
 
 def main() -> None:
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    argv = sys.argv[1:]
+    override = {}
+    if "--override" in argv:
+        i = argv.index("--override")
+        override = json.loads(argv[i + 1])
+        del argv[i : i + 2]
+    args = [a for a in argv if not a.startswith("--")]
     if len(args) != 1:
         print(__doc__)
         sys.exit(1)
-    ok = run_task(args[0], use_agent="--no-agent" not in sys.argv)
+    ok = run_task(args[0], use_agent="--no-agent" not in argv, override=override)
     print("SUCCEEDED" if ok else "FAILED")
     sys.exit(0 if ok else 1)
 
