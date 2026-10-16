@@ -1,0 +1,102 @@
+{
+    // 召喚：只在「1 回召喚」按鈕上辨識到 Free 時點擊。
+    // 鈴鐺抽卡沒有二次確認 —— 絕不點 11 回召喚、絕不在召喚畫面做盲點，結果頁只點「關閉」。
+    // 進入召喚預設為常駐召喚（每日免費單抽所在）。
+    "FreeGacha": {
+        "next": [
+            "FreeGacha_Open",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "FreeGacha_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor"
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [470, 1160, 150, 70],
+        "post_delay": 2500,
+        "next": [
+            "FreeGacha_Pull",
+            "FreeGacha_NoFree",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "FreeGacha_Pull": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "回召喚",
+                        "roi": [115, 895, 140, 60]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^Free$",
+                        "roi": [250, 900, 95, 45]
+                    }
+                ],
+                // 點按鈕左側「回召喚」文字，遠離右側的 11 回召喚
+                "box_index": 0
+            }
+        },
+        "action": "Click",
+        "post_delay": 3000,
+        "next": [
+            "FreeGacha_Result",
+            "FreeGacha_Skip",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "FreeGacha_Skip": {
+        "recognition": "OCR",
+        "expected": "SKIP",
+        "roi": [0, 60, 180, 70],
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "FreeGacha_Result",
+            "FreeGacha_Skip"
+        ]
+    },
+    // 結果頁有再抽按鈕（扣鈴鐺），只點「關閉」文字本身
+    "FreeGacha_Result": {
+        "recognition": "OCR",
+        "expected": "^關閉$",
+        "roi": [270, 1180, 180, 60],
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "FreeGacha_NoFree"
+        ]
+    },
+    "FreeGacha_NoFree": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "召喚",
+                        "roi": [75, 85, 120, 35]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "回召喚",
+                        "roi": [115, 895, 140, 60]
+                    }
+                ]
+            }
+        },
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}

@@ -57,6 +57,12 @@
             "label": "公會簽到與任務",
             "entry": "Guild",
             "default_check": true
+        },
+        {
+            "name": "FreeGacha",
+            "label": "每日免費單抽",
+            "entry": "FreeGacha",
+            "default_check": true
         }
     ],
     "option": {}
