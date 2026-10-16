@@ -1,6 +1,6 @@
 {
-    // 每日任務：放在整個日常流程最後執行。一鍵領取會同時開啟已達成的活躍寶箱（20~100）。
-    // 每週任務：一鍵領取為黃色時才領。
+    // 每日任務：放在整個日常流程最後執行。一鍵領取只領任務；活躍寶箱需再點一下發光的進度條才會領取。
+    // 每日寶箱：只在 100 寶箱發光時點（一次領全部）。每週寶箱：任何一個發光就點。
     "DailyMissions": {
         "next": [
             "[JumpBack]ExitDialogCancel",
@@ -40,6 +40,7 @@
         "post_delay": 1500,
         "next": [
             "Missions_DailyClaim",
+            "Missions_DailyChest",
             "Missions_GoWeekly"
         ]
     },
@@ -78,6 +79,7 @@
         "post_delay": 1500,
         "next": [
             "Missions_DailyClaim",
+            "Missions_DailyChest",
             "Missions_GoWeekly",
             "[JumpBack]ClosePopup"
         ]
@@ -90,6 +92,7 @@
         "post_delay": 1500,
         "next": [
             "Missions_WeeklyClaim",
+            "Missions_WeeklyChest",
             "Missions_Done"
         ]
     },
@@ -117,6 +120,98 @@
         "post_delay": 1500,
         "next": [
             "Missions_WeeklyClaim",
+            "Missions_WeeklyChest",
+            "Missions_Done",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    // 發光寶箱：寶箱上方有綠色光暈（已領取或未達成的寶箱上方是暗色）
+    // 寶箱中心 x ≈ 235 / 320 / 405 / 490 / 570（每日 20~100、每週 200~1000）
+    "Missions_DailyChest": {
+        "recognition": "ColorMatch",
+        "roi": [535, 300, 70, 18],
+        "lower": [0, 121, 0],
+        "upper": [119, 255, 255],
+        "count": 130,
+        "action": "Click",
+        "target_offset": [0, 25, 0, 0],
+        "post_delay": 2000,
+        "next": [
+            "Missions_DailyChestReward",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Missions_DailyChestReward": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 840, 720, 80],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Missions_GoWeekly",
+            "[JumpBack]ClosePopup"
+        ]
+    },
+    "Missions_WeeklyChest": {
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [200, 300, 70, 18],
+                        "lower": [0, 121, 0],
+                        "upper": [119, 255, 255],
+                        "count": 130
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [285, 300, 70, 18],
+                        "lower": [0, 121, 0],
+                        "upper": [119, 255, 255],
+                        "count": 130
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [370, 300, 70, 18],
+                        "lower": [0, 121, 0],
+                        "upper": [119, 255, 255],
+                        "count": 130
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [455, 300, 70, 18],
+                        "lower": [0, 121, 0],
+                        "upper": [119, 255, 255],
+                        "count": 130
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [535, 300, 70, 18],
+                        "lower": [0, 121, 0],
+                        "upper": [119, 255, 255],
+                        "count": 130
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "target_offset": [0, 25, 0, 0],
+        "post_delay": 2000,
+        "max_hit": 5,
+        "next": [
+            "Missions_WeeklyChestReward",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Missions_WeeklyChestReward": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 840, 720, 80],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Missions_WeeklyChest",
             "Missions_Done",
             "[JumpBack]ClosePopup"
         ]
