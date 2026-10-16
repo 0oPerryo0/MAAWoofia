@@ -33,6 +33,12 @@
             "label": "啟動遊戲",
             "entry": "StartUp",
             "default_check": true
+        },
+        {
+            "name": "SausageStamina",
+            "label": "香腸伯體力（擲骰）",
+            "entry": "SausageStamina",
+            "default_check": true
         }
     ],
     "option": {}

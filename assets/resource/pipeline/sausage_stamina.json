@@ -1,0 +1,97 @@
+{
+    // 香腸伯：每個時段（05:00-17:00、17:00-05:00）可領一次，一律選擲骰（+20~180），不選固定 50
+    // 本時段已領取後主畫面的香腸伯圖示會消失：在主畫面且找不到圖示 = 已完成
+    "SausageStamina": {
+        "next": [
+            "Sausage_Open",
+            "Sausage_NotAvailable",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "Sausage_NotAvailable": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor"
+                ]
+            }
+        }
+    },
+    "Sausage_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor",
+                    {
+                        "recognition": "OCR",
+                        "expected": "香腸伯",
+                        "roi": [500, 250, 220, 420]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
+        "action": "Click",
+        "target_offset": [0, -30, 0, 0],
+        "post_delay": 2000,
+        "next": [
+            "Sausage_Help",
+            "Sausage_AlreadyDone",
+            "Sausage_Roll",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    // 首次進入的說明頁（內含按鈕預覽圖，必須排在 Sausage_Roll 之前）
+    "Sausage_Help": {
+        "recognition": "OCR",
+        "expected": "可選擇直接領取",
+        "roi": [110, 900, 500, 60],
+        "action": "ClickKey",
+        "key": 4,
+        "post_delay": 1500,
+        "next": [
+            "Sausage_AlreadyDone",
+            "Sausage_Roll",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Sausage_Roll": {
+        "recognition": "OCR",
+        "expected": "擲骰拚一波",
+        "roi": [370, 1100, 220, 70],
+        "action": "Click",
+        "post_delay": 3000,
+        "next": [
+            "Sausage_Result",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    // 獎勵彈窗與結算畫面都有「獲得能量」，按返回直到回到活動頁
+    "Sausage_Result": {
+        "recognition": "OCR",
+        "expected": "獲得能量",
+        "roi": [200, 920, 320, 80],
+        "action": "ClickKey",
+        "key": 4,
+        "post_delay": 2000,
+        "next": [
+            "Sausage_AlreadyDone",
+            "Sausage_Result",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Sausage_AlreadyDone": {
+        "recognition": "OCR",
+        "expected": "已完成香腸領取",
+        "roi": [0, 1100, 720, 70],
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}
