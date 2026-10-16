@@ -148,12 +148,27 @@
             "[JumpBack]Bonus_Advance"
         ]
     },
+    // 免費次數用完後：抽牌 →「可抽牌次數不足，是否直接消耗…」；加速培慾 →「是否消耗1…兌換…」→ 一律取消
     "Bonus_NoFreeUse": {
-        "recognition": "OCR",
-        "expected": "次數不足",
-        "roi": [100, 560, 520, 70],
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "次數不足|是否消耗",
+                        "roi": [100, 540, 520, 180]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "^取消$",
+                        "roi": [100, 640, 520, 180]
+                    }
+                ],
+                "box_index": 1
+            }
+        },
         "action": "Click",
-        "target": [190, 695, 140, 50],
         "post_delay": 1500,
         "next": [
             "Bonus_Finished"
