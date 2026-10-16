@@ -1,0 +1,18 @@
+{
+    // 供 agent/stage_nav.py 使用
+    "StageNav_Mode": {
+        "recognition": "OCR",
+        "expected": "普通|困難",
+        "roi": [280, 1185, 180, 55]
+    },
+    "StageNav_OCR": {
+        "recognition": "OCR",
+        "roi": [0, 120, 720, 1040]
+    },
+    // 章節卡大字編號；roi 由 agent 依標題位置覆寫
+    "StageNav_ChapterNumber": {
+        "recognition": "OCR",
+        "roi": [195, 580, 110, 85],
+        "only_rec": true
+    }
+}

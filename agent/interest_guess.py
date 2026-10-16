@@ -53,24 +53,23 @@ class InterestRound(CustomAction):
         param = json.loads(argv.custom_action_param or "{}") or {}
         character = param.get("character", "")
         table = json.loads(TABLE_PATH.read_text(encoding="utf-8"))
-        controller = context.tasker.controller
 
-        image = controller.post_screencap().wait().get()
+        image = context.tasker.controller.post_screencap().wait().get()
         yellow = [is_yellow_border(image, x) for x in CARD_LEFT_X]
 
         names = []
         for x, y in CARD_CENTERS:
-            controller.post_click(x, y).wait()
+            context.tasker.controller.post_click(x, y).wait()
             time.sleep(0.6)
-            image = controller.post_screencap().wait().get()
+            image = context.tasker.controller.post_screencap().wait().get()
             reco = context.run_recognition("InterestGuess_CardName", image)
             names.append(reco.best_result.text if reco and reco.hit else "")
 
         index = choose_card(character, names, yellow, table)
         if pick_card(character, names, table) is None:
-            print(f"interest_round: no table match: {character} {names} yellow={yellow} -> {index}")
+            print(f"interest_round: no table match: {character} {names} yellow={yellow} -> {index}", flush=True)
 
-        controller.post_click(*CARD_CENTERS[index]).wait()
+        context.tasker.controller.post_click(*CARD_CENTERS[index]).wait()
         time.sleep(0.6)
-        controller.post_click(*CONFIRM).wait()
+        context.tasker.controller.post_click(*CONFIRM).wait()
         return True

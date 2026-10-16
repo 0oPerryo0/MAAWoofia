@@ -31,11 +31,18 @@ def run_task(entry: str, use_agent: bool = True, override: dict | None = None) -
         print(f"cannot connect to ADB device {adb_serial()} (adb: {adb_path()})")
         return False
 
+    tasker = Tasker()
+    tasker.bind(resource, controller)
+    tasker.set_log_dir(ROOT / "dev" / "debug")
+    tasker.set_save_on_error(True)
+
     agent_proc = None
     client = None
     if use_agent:
         client = AgentClient()
         client.bind(resource)
+        # lets agent-side actions use context.tasker.controller (clicks, swipes, screencaps)
+        client.register_sink(resource, controller, tasker)
         agent_proc = subprocess.Popen(
             [sys.executable, str(ROOT / "agent" / "main.py"), client.identifier],
             cwd=ROOT / "dev",
@@ -46,10 +53,6 @@ def run_task(entry: str, use_agent: bool = True, override: dict | None = None) -
             return False
 
     try:
-        tasker = Tasker()
-        tasker.bind(resource, controller)
-        tasker.set_log_dir(ROOT / "dev" / "debug")
-        tasker.set_save_on_error(True)
         if not tasker.inited:
             print("tasker failed to initialize")
             return False

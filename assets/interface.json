@@ -81,6 +81,20 @@
             ]
         },
         {
+            "name": "StageSkip",
+            "label": "掃蕩關卡（主線／困難／觀光工坊）",
+            "entry": "StageSkip",
+            "default_check": true,
+            "option": [
+                "skip_main",
+                "main_stage",
+                "skip_hard",
+                "hard_stage",
+                "skip_tour",
+                "leftover"
+            ]
+        },
+        {
             "name": "DailyMissions",
             "label": "領取每日／每週任務（請放在最後）",
             "entry": "DailyMissions",
@@ -1154,6 +1168,169 @@
                             "custom_action_param": {
                                 "character": "冥界衛犬阿努比洛斯"
                             }
+                        }
+                    }
+                }
+            ]
+        },
+        "skip_main": {
+            "type": "switch",
+            "label": "掃蕩主線關卡",
+            "default_case": "Yes",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "Skip_Main": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "pipeline_override": {
+                        "Skip_Main": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "main_stage": {
+            "type": "input",
+            "label": "主線關卡與次數",
+            "description": "關卡編號如 11-36；次數 0 = 用到體力不足為止。未填關卡則略過。",
+            "inputs": [
+                {
+                    "name": "main_stage",
+                    "label": "主線關卡",
+                    "default": "",
+                    "pipeline_type": "string"
+                },
+                {
+                    "name": "main_count",
+                    "label": "次數",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[0-9]+$"
+                }
+            ],
+            "pipeline_override": {
+                "SkipMain_Goto": {
+                    "custom_action_param": {
+                        "stage": "{main_stage}",
+                        "hard": false
+                    }
+                },
+                "SkipMain_Dialog": {
+                    "custom_action_param": {
+                        "count": "{main_count}"
+                    }
+                },
+                "SkipLeft_Goto": {
+                    "custom_action_param": {
+                        "stage": "{main_stage}",
+                        "hard": false
+                    }
+                }
+            }
+        },
+        "skip_hard": {
+            "type": "switch",
+            "label": "掃蕩困難關卡",
+            "default_case": "Yes",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "Skip_Hard": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "pipeline_override": {
+                        "Skip_Hard": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "hard_stage": {
+            "type": "input",
+            "label": "困難關卡與次數",
+            "description": "困難關卡編號如 11-4（每關每日 3 次）；次數 0 = 用完。未填關卡則略過。",
+            "inputs": [
+                {
+                    "name": "hard_stage",
+                    "label": "困難關卡",
+                    "default": "",
+                    "pipeline_type": "string"
+                },
+                {
+                    "name": "hard_count",
+                    "label": "次數",
+                    "default": "1",
+                    "pipeline_type": "int",
+                    "verify": "^[0-9]+$"
+                }
+            ],
+            "pipeline_override": {
+                "SkipHard_Goto": {
+                    "custom_action_param": {
+                        "stage": "{hard_stage}",
+                        "hard": true
+                    }
+                },
+                "SkipHard_Dialog": {
+                    "custom_action_param": {
+                        "count": "{hard_count}"
+                    }
+                }
+            }
+        },
+        "skip_tour": {
+            "type": "switch",
+            "label": "掃蕩觀光工坊（今日開放的最高等級，用完次數）",
+            "default_case": "Yes",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "pipeline_override": {
+                        "Skip_Tour": {
+                            "enabled": true
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "pipeline_override": {
+                        "Skip_Tour": {
+                            "enabled": false
+                        }
+                    }
+                }
+            ]
+        },
+        "leftover": {
+            "type": "select",
+            "label": "剩餘體力",
+            "cases": [
+                {
+                    "name": "保留",
+                    "pipeline_override": {
+                        "Skip_Leftover": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "全部用於主線關卡",
+                    "pipeline_override": {
+                        "Skip_Leftover": {
+                            "enabled": true
                         }
                     }
                 }
