@@ -45,6 +45,12 @@
             "label": "市集免費領取",
             "entry": "ShopFree",
             "default_check": true
+        },
+        {
+            "name": "AffectionClaim",
+            "label": "培慾契合度結算",
+            "entry": "AffectionClaim",
+            "default_check": true
         }
     ],
     "option": {}

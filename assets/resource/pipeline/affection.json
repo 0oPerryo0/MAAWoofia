@@ -1,0 +1,84 @@
+{
+    // 培慾：契合度結算按鈕黃色 = 可結算，灰色 = 無可結算
+    "AffectionClaim": {
+        "next": [
+            "Affection_Open",
+            "[JumpBack]GoHomeStep"
+        ]
+    },
+    "Affection_Open": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "HomeAnchor"
+                ]
+            }
+        },
+        "action": "Click",
+        "target": [110, 1160, 170, 70],
+        "post_delay": 2000,
+        "next": [
+            "Affection_Settle",
+            "Affection_NothingToSettle",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Affection_Settle": {
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "契合度結算",
+                        "roi": [375, 1185, 160, 55]
+                    },
+                    {
+                        "recognition": "ColorMatch",
+                        "roi": [375, 1185, 160, 55],
+                        "lower": [220, 190, 30],
+                        "upper": [255, 240, 110],
+                        "count": 1500
+                    }
+                ]
+            }
+        },
+        "action": "Click",
+        "post_delay": 2000,
+        "next": [
+            "Affection_SettleResult",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "Affection_SettleResult": {
+        "recognition": "OCR",
+        "expected": "點擊.*關閉",
+        "roi": [0, 870, 720, 90],
+        "action": "Click",
+        "post_delay": 1500,
+        "next": [
+            "Affection_NothingToSettle",
+            "HomeAnchor",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]Affection_DismissPopup"
+        ]
+    },
+    // 結算後可能接連出現「契合度等級提升」與（Lv1-3）「解鎖新劇情」彈窗：以返回鍵關閉
+    "Affection_DismissPopup": {
+        "action": "ClickKey",
+        "key": 4,
+        "post_delay": 2000,
+        "max_hit": 6
+    },
+    "Affection_NothingToSettle": {
+        "recognition": "OCR",
+        "expected": "契合度結算",
+        "roi": [375, 1185, 160, 55],
+        "next": [
+            "HomeAnchor",
+            "[JumpBack]GoHomeStep"
+        ]
+    }
+}
