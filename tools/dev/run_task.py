@@ -5,6 +5,7 @@ Logs and on-error screenshots go to dev/debug/.
 """
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -25,6 +26,9 @@ def run_task(entry: str, use_agent: bool = True, override: dict | None = None) -
 
     resource = Resource()
     resource.post_bundle(ROOT / "assets" / "resource").wait()
+    # e.g. MAA_EXTRA_RESOURCE=assets/resource_ko when the game is set to Korean
+    if os.environ.get("MAA_EXTRA_RESOURCE"):
+        resource.post_bundle(ROOT / os.environ["MAA_EXTRA_RESOURCE"]).wait()
 
     controller = AdbController(adb_path(), adb_serial())
     if not controller.post_connection().wait().succeeded:

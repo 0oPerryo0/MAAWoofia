@@ -7,6 +7,8 @@ from maa.custom_action import CustomAction
 # 720x1280 portrait FRIENDS (追蹤清單) list
 OCR_NODE = "FriendPoke_OCR"
 POKE_LABEL = "頂一下"
+# the same button in 简中 / English / 日本語 / 한국어
+POKE_LABELS = {POKE_LABEL, "顶一下", "Poke", "挨拶する", "찌르기"}
 ICON_ABOVE_LABEL = 28  # centre of the square icon above the 頂一下 label
 NAME_X = (215, 235)  # friend names start at x≈222; titles below them start further right
 # short, slow drag (~2 rows): a fast swipe flings the list past rows that never get poked
@@ -23,7 +25,7 @@ def is_pokeable(image, x: int, y: int) -> bool:
 
 
 def poke_targets(results, image=None) -> list[tuple[int, int]]:
-    targets = [(r.box[0] + r.box[2] // 2, r.box[1] - ICON_ABOVE_LABEL) for r in results if r.text == POKE_LABEL]
+    targets = [(r.box[0] + r.box[2] // 2, r.box[1] - ICON_ABOVE_LABEL) for r in results if r.text.strip() in POKE_LABELS]
     if image is None:
         return targets
     return [(x, y) for x, y in targets if is_pokeable(image, x, y)]

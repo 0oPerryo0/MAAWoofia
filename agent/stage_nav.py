@@ -25,9 +25,16 @@ def parse_stage(text: str) -> tuple[int, int]:
     return int(match.group(1)), int(match.group(2))
 
 
+HARD_WORDS = ("困難", "困难", "Hard", "ハード", "하드")
+
+
+def is_hard(label: str) -> bool:
+    return any(word in label for word in HARD_WORDS)
+
+
 def stage_matches(label: str, stage: tuple[int, int], hard: bool = False) -> bool:
     label = label.strip()
-    if ("困難" in label) != hard:
+    if is_hard(label) != hard:
         return False
     return re.search(rf"(?<![\d-]){stage[0]}-{stage[1]}$", label) is not None
 
@@ -122,7 +129,7 @@ class GotoStage(CustomAction):
         for _ in range(3):
             image = context.tasker.controller.post_screencap().wait().get()
             mode = context.run_recognition(MODE_ROI_NODE, image)
-            if mode and mode.hit and ("困難" in mode.best_result.text) == hard:
+            if mode and mode.hit and is_hard(mode.best_result.text) == hard:
                 return True
             context.tasker.controller.post_click(*MODE_TOGGLE).wait()
             time.sleep(1.5)

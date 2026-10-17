@@ -36,7 +36,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "回召喚",
+                        "expected": "回召喚|回召唤|ummon|회 ?소환",
                         "roi": [115, 895, 140, 60]
                     },
                     {
@@ -71,7 +71,7 @@
     // 結果頁有再抽按鈕（扣鈴鐺），只點「關閉」文字本身
     "FreeGacha_Result": {
         "recognition": "OCR",
-        "expected": "^關閉$",
+        "expected": "^關閉$|^关闭$|^Close$|^閉じる$|^닫기$",
         "roi": [270, 1180, 180, 60],
         "action": "Click",
         "post_delay": 2000,
@@ -86,12 +86,12 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "召喚",
+                        "expected": "召喚|召唤|ummon|UMMON|Invite|소환",
                         "roi": [75, 85, 120, 35]
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "回召喚",
+                        "expected": "回召喚|回召唤|ummon|회 ?소환",
                         "roi": [115, 895, 140, 60]
                     }
                 ]

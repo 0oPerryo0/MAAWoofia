@@ -35,7 +35,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "契合度結算",
+                        "expected": "契合度結算|契合度结算|Bond.?Add-Up|相性度計算|적합도 ?결산",
                         "roi": [375, 1185, 160, 55]
                     },
                     {
@@ -57,7 +57,7 @@
     },
     "Affection_SettleResult": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 870, 720, 90],
         "action": "Click",
         "post_delay": 1500,
@@ -77,7 +77,7 @@
     },
     "Affection_NothingToSettle": {
         "recognition": "OCR",
-        "expected": "契合度結算",
+        "expected": "契合度結算|契合度结算|Bond.?Add-Up|相性度計算|적합도 ?결산",
         "roi": [375, 1185, 160, 55],
         "next": [
             "HomeAnchor",
@@ -117,7 +117,7 @@
     // 房間位置由選項 bonus_slot 覆寫 roi（1: y≈405、2: y≈727、3（月卡）: y≈1049）
     "Bonus_EnterSlot": {
         "recognition": "OCR",
-        "expected": "進去玩他",
+        "expected": "進去玩他|进去玩他|^Play$|交流する|만지기",
         "roi": [540, 375, 180, 60],
         "action": "Click",
         "post_delay": 2500,
@@ -130,7 +130,7 @@
     // 造型未解鎖：抽牌 → 卡牌遊戲
     "Bonus_Draw": {
         "recognition": "OCR",
-        "expected": "^抽牌$",
+        "expected": "^抽牌$|^Draw$|^ドロー$|^카드 ?뽑기$",
         "roi": [280, 1185, 120, 55],
         "action": "Click",
         "post_delay": 2500,
@@ -144,7 +144,7 @@
     // 造型已解鎖：加速培慾直接給好感
     "Bonus_Accelerate": {
         "recognition": "OCR",
-        "expected": "加速培",
+        "expected": "加速培|Speed.?Up|交漢加速|육성 ?가속",
         "roi": [130, 1185, 330, 55],
         "action": "Click",
         "post_delay": 3000,
@@ -163,12 +163,12 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "次數不足|是否消耗",
+                        "expected": "次數不足|次数不足|是否消耗|Exchange|Purchase|消費して|購入|소모하여|구매",
                         "roi": [100, 540, 520, 180]
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "^取消$",
+                        "expected": "^取消$|^Cancel$|^キャンセル$|^취소$",
                         "roi": [100, 640, 520, 180]
                     }
                 ],
@@ -183,7 +183,7 @@
     },
     "Bonus_Round1": {
         "recognition": "OCR",
-        "expected": "第.?1.?回合",
+        "expected": "第.?1.?回合|Round.?1$|第.?1.?ターン|^1.?라운드",
         "roi": [230, 440, 260, 90],
         "action": "Custom",
         "custom_action": "interest_round",
@@ -208,7 +208,7 @@
     },
     "Bonus_Round2": {
         "recognition": "OCR",
-        "expected": "第.?2.?回合",
+        "expected": "第.?2.?回合|Round.?2$|第.?2.?ターン|^2.?라운드",
         "roi": [230, 440, 260, 90],
         "action": "Custom",
         "custom_action": "interest_round",
@@ -233,7 +233,7 @@
     },
     "Bonus_Round3": {
         "recognition": "OCR",
-        "expected": "第.?3.?回合",
+        "expected": "第.?3.?回合|Round.?3$|第.?3.?ターン|^3.?라운드",
         "roi": [230, 440, 260, 90],
         "action": "Custom",
         "custom_action": "interest_round",
@@ -271,12 +271,12 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "^卡",
+                        "expected": "^卡|^Card|^カード|^카드",
                         "roi": [10, 895, 130, 45]
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "抽牌|加速培",
+                        "expected": "抽牌|加速培|Draw|Speed.?Up|ドロー|交漢加速|카드 ?뽑기|육성 ?가속",
                         "roi": [130, 1185, 330, 55]
                     }
                 ]

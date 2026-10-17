@@ -60,7 +60,7 @@
     },
     "Sausage_Roll": {
         "recognition": "OCR",
-        "expected": "擲骰拚一波",
+        "expected": "擲骰拚一波|掷骰拼一波|Roll.?Dice|サイコロを振る|랜덤 ?받기",
         "roi": [370, 1100, 220, 70],
         "action": "Click",
         "post_delay": 3000,
@@ -72,7 +72,7 @@
     // 獎勵彈窗與結算畫面都有「獲得能量」，按返回直到回到活動頁
     "Sausage_Result": {
         "recognition": "OCR",
-        "expected": "獲得能量",
+        "expected": "獲得能量|获得体力|Energy.?Gained|エナジー獲得|에너지 ?획득",
         "roi": [200, 920, 320, 80],
         "action": "ClickKey",
         "key": 4,
@@ -87,7 +87,7 @@
     },
     "Sausage_AlreadyDone": {
         "recognition": "OCR",
-        "expected": "已完成香腸領取",
+        "expected": "已完成香腸領取|已完成香肠领取|already.?claimed|ソーセージを受け取って|수령이 ?완료",
         "roi": [0, 1100, 720, 70],
         "next": [
             "HomeAnchor",

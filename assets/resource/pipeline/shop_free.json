@@ -15,7 +15,7 @@
                     "HomeAnchor",
                     {
                         "recognition": "OCR",
-                        "expected": "市集",
+                        "expected": "市集|Market|MARKET|商店|마[켓렛]|SHOPPING|Shopping",
                         "roi": [110, 965, 120, 55]
                     }
                 ],
@@ -35,9 +35,25 @@
         ]
     },
     "ShopFree_DailyTab": {
-        "recognition": "OCR",
-        "expected": "每日市集",
-        "roi": [95, 1200, 100, 45],
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "每日市集|^Daily$|デイリー|일일 ?마[켓렛]",
+                        "roi": [95, 1200, 100, 45]
+                    },
+                    // 選中的分頁會發亮，韓文時常偵測不到文字框：只做辨識
+                    {
+                        "recognition": "OCR",
+                        "expected": "每日市集|^Daily$|デイリー|일일 ?마[켓렛]",
+                        "roi": [95, 1210, 100, 30],
+                        "only_rec": true
+                    }
+                ]
+            }
+        },
         "action": "Click",
         "post_delay": 1500,
         "next": [
@@ -59,7 +75,7 @@
                     // 角標右側「限購：X/Y」，X≥1 代表尚未領取（已領取為 0/1）
                     {
                         "recognition": "OCR",
-                        "expected": "限購：[1-9]",
+                        "expected": "限購：[1-9]|限购[：:] ?[1-9]|Limit[：:] ?[1-9]|購入[：:] ?[1-9]|제한[：:] ?[1-9]",
                         "roi": "free_badge",
                         "roi_offset": [45, -5, 50, 12]
                     }
@@ -83,7 +99,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "購買數量",
+                        "expected": "購買數量|购买数量|Amount|購入数|구매 ?수량",
                         "roi": [200, 655, 320, 50]
                     },
                     // 整個價格欄只能有一個 0（虹石圖示常被讀成「•」，0 可能讀成 o）；10、100 等不符合
@@ -105,7 +121,7 @@
     },
     "ShopFree_CancelPaid": {
         "recognition": "OCR",
-        "expected": "購買數量",
+        "expected": "購買數量|购买数量|Amount|購入数|구매 ?수량",
         "roi": [200, 655, 320, 50],
         "action": "Click",
         "target": [190, 788, 140, 45],
@@ -116,7 +132,7 @@
     },
     "ShopFree_Reward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 800, 720, 150],
         "action": "Click",
         "post_delay": 1500,
@@ -127,9 +143,24 @@
     },
     // 每日市集內已無可領的免費品項 → 回主畫面
     "ShopFree_Done": {
-        "recognition": "OCR",
-        "expected": "每日市集",
-        "roi": [80, 85, 140, 35],
+        "recognition": {
+            "type": "Or",
+            "param": {
+                "any_of": [
+                    {
+                        "recognition": "OCR",
+                        "expected": "每日市集|^Daily$|デイリー|일일 ?마[켓렛]",
+                        "roi": [80, 85, 140, 35]
+                    },
+                    {
+                        "recognition": "OCR",
+                        "expected": "每日市集|^Daily$|デイリー|일일 ?마[켓렛]",
+                        "roi": [80, 88, 120, 28],
+                        "only_rec": true
+                    }
+                ]
+            }
+        },
         "next": [
             "HomeAnchor",
             "[JumpBack]GoHomeStep"

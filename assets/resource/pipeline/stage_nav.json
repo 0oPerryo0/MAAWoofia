@@ -2,7 +2,7 @@
     // 供 agent/stage_nav.py 使用
     "StageNav_Mode": {
         "recognition": "OCR",
-        "expected": "普通|困難",
+        "expected": "普通|困難|困难|Normal|Hard|ノーマル|ハード|보통|하드",
         "roi": [280, 1185, 180, 55]
     },
     "StageNav_OCR": {
@@ -18,7 +18,7 @@
     // sweep_set_count 每次點擊前確認仍在速通視窗
     "StageNav_SweepDialog": {
         "recognition": "OCR",
-        "expected": "速通次數",
+        "expected": "速通次數|速通次数|Fast.?Run|クイック戦闘回数|프리패스 ?횟수",
         "roi": [240, 650, 260, 40]
     }
 }

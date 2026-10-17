@@ -7,7 +7,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "出擊",
+                        "expected": "出擊|出击|出撃|^GO!?$|출격",
                         "roi": [280, 1110, 160, 90]
                     },
                     // 「出擊」字樣需為亮色：任何彈窗或對話框覆蓋時主畫面會變暗
@@ -23,8 +23,8 @@
                         "recognition": "OCR",
                         // 「慾」常被 OCR 誤讀（如「培您」），改以英文標籤 SESSION 或「培」開頭判定
                         "expected": [
-                            "SESSION",
-                            "^培"
+                            "SESSIO",
+                            "^培|交漢|HOOK|육성"
                         ],
                         "roi": [100, 1150, 200, 90]
                     }
@@ -52,7 +52,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "簽到獎勵",
+                        "expected": "簽到獎勵|签到奖励|Sign.?in.?Reward|ログインボーナス|サインインボーナス|출석 ?보상",
                         "roi": [380, 240, 260, 130]
                     },
                     {
@@ -72,7 +72,7 @@
     // 已領取（無發亮卡片）的簽到視窗：返回鍵關閉
     "SignInDismiss": {
         "recognition": "OCR",
-        "expected": "簽到獎勵",
+        "expected": "簽到獎勵|签到奖励|Sign.?in.?Reward|ログインボーナス|サインインボーナス|출석 ?보상",
         "roi": [380, 240, 260, 130],
         "action": "ClickKey",
         "key": 4,
@@ -81,7 +81,7 @@
     // 登入後的付費禮包宣傳視窗：先勾「今日不再顯示」，再點左下角返回鈕；絕不點「購買」
     "PromoClose": {
         "recognition": "OCR",
-        "expected": "今日不再顯示",
+        "expected": "今日不再顯示|今日不再显示|show.?again.?today|再表示されない|다시 ?보지 ?않기",
         "roi": [280, 1185, 220, 55],
         "action": "Click",
         "target": [286, 1200, 22, 24],
@@ -100,8 +100,8 @@
     "ExitDialogCancel": {
         "recognition": "OCR",
         "expected": [
-            "回到標題畫面",
-            "離開遊戲"
+            "回到標題畫面|回到标题画面|Return.?to.?Title|タイトル画面に戻|메인 ?화면으로",
+            "離開遊戲|离开游戏|Exit.?game|ゲームを終了|게임을 ?종료"
         ],
         "roi": [120, 540, 480, 140],
         "action": "Click",
@@ -114,7 +114,7 @@
     "ClosePopup": {
         "recognition": "OCR",
         "expected": [
-            "點擊.*關閉",
+            "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
             "點擊.*繼續"
         ],
         "roi": [0, 800, 720, 480],
@@ -123,7 +123,7 @@
     },
     "NetworkRetry": {
         "recognition": "OCR",
-        "expected": "^重試$",
+        "expected": "^重試$|^重试$|^Retry$|^リトライ$|^다시 ?시도$",
         "roi": [100, 500, 520, 500],
         "action": "Click",
         "post_delay": 2000
@@ -158,13 +158,20 @@
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "^打工$",
+                        "expected": "^打工$|^Part-Time$|^Go!?$|^バイト$|^알바$|^하기$",
                         "roi": [
                             600,
                             450,
                             120,
                             90
                         ]
+                    },
+                    // 日文標籤（描邊片假名）偵測不到文字框：只做辨識；「バイト」常被圖釘遮住讀成「ハ丫ト」
+                    {
+                        "recognition": "OCR",
+                        "expected": "^打工$|^Part-Time$|バイト|^ハ.ト$|^알바$",
+                        "roi": [612, 490, 100, 32],
+                        "only_rec": true
                     }
                 ]
             }
@@ -188,13 +195,20 @@
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "^任務$",
+                        "expected": "^任務$|^任务$|^Quests$|^クエスト$|^미션$",
                         "roi": [
                             600,
                             360,
                             120,
                             90
                         ]
+                    },
+                    // 日文標籤偵測不到文字框：只做辨識
+                    {
+                        "recognition": "OCR",
+                        "expected": "^任務$|^任务$|^Quests$|^クエスト$|^미션$",
+                        "roi": [612, 396, 100, 34],
+                        "only_rec": true
                     }
                 ]
             }
@@ -218,7 +232,7 @@
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "香腸",
+                        "expected": "香腸|香肠|Sausage|ソーセージ|소시지",
                         "roi": [
                             500,
                             450,
