@@ -147,6 +147,10 @@ jobs:
     name: Generate changelog
     needs: meta
     runs-on: ubuntu-latest
+    # git-cliff 會讀取 PR 資訊；預設權限的 GITHUB_TOKEN 讀不到 /pulls（403）
+    permissions:
+      contents: read
+      pull-requests: read
     outputs:
       release_body: ${{ steps.git-cliff.outputs.content }}
     steps:
