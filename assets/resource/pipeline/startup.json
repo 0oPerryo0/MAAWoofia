@@ -4,6 +4,27 @@
         "package": "com.nightfun.xxlwoofia",
         // 正常啟動 60 秒內應看到標題或主畫面；否則可能停在子選單，改用返回鍵回主畫面
         "timeout": 60000,
+        // 未安裝此套件時 StartApp 失敗，改啟動 Google Play 版
+        "on_error": [
+            "StartUp_PlayStore"
+        ],
+        "next": [
+            "[JumpBack]SignInClaim",
+            "[JumpBack]SignInDismiss",
+            "[JumpBack]PromoClose",
+            "HomeAnchor",
+            "StartUp_TapToStart",
+            "StartUp_SkipIntro",
+            "[JumpBack]ExitDialogCancel",
+            "[JumpBack]ClosePopup",
+            "[JumpBack]NetworkRetry"
+        ]
+    },
+    "StartUp_PlayStore": {
+        // Google Play 版套件名稱不同；兩者皆未安裝時 StartApp 失敗，交給 StartUp_Recover
+        "action": "StartApp",
+        "package": "com.megagames.xxlwoofia",
+        "timeout": 60000,
         "on_error": [
             "StartUp_Recover"
         ],

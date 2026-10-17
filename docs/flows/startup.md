@@ -14,6 +14,9 @@ Home-screen buttons (center points): 香腸伯 (568,480) · 商城 (660,300) · 
 召喚 (540,1195) · 市集 (150,995). Left bar: 公告 信箱 好友 圖鑑 背包 設定.
 
 Notes
+- Two builds exist: `com.nightfun.xxlwoofia` (tried first) and the Google Play build
+  `com.megagames.xxlwoofia`. `StartApp` fails when a package is not installed, which routes
+  `StartUp` to `StartUp_PlayStore` via `on_error`.
 - Back closes sub-screens reliably; `GoHomeStep` relies on it.
 - `adb shell input tap` does not land correctly in this portrait game on BlueStacks; use
   MaaFramework input (`tools/dev/act.py`).
