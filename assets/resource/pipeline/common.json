@@ -132,7 +132,11 @@
         "action": "ClickKey",
         "key": 4,
         "post_delay": 1000,
-        "post_wait_freezes": 800,
+        // 公會、培慾等畫面有角色動畫，畫面永遠不會靜止；最多等 5 秒（預設 20 秒）
+        "post_wait_freezes": {
+            "time": 800,
+            "timeout": 5000
+        },
         "max_hit": 40
     },
     // 主畫面右側圖示（位置固定）：標籤模板或 OCR 任一命中即可

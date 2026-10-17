@@ -168,6 +168,8 @@ jobs:
         env:
           OUTPUT: CHANGES.md
           GITHUB_REPO: ${{ github.repository }}
+          # 未帶 token 時 GitHub API 匿名請求會被限流（403），導致 changelog 產生失敗
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release:
     if: ${{ needs.meta.outputs.is_release == 'true' }}
