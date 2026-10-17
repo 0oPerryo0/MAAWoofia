@@ -26,7 +26,9 @@ def open_sortie(p: str, nxt: list[str]) -> dict:
             "action": "Click",
             "target": [290, 1110, 140, 80],
             "post_delay": 2500,
-            "next": nxt + ["[JumpBack]ClosePopup", "[JumpBack]NetworkRetry"],
+            "max_hit": 3,
+            # re-tap if the tap was swallowed while home was still settling
+            "next": nxt + [f"{p}_OpenSortie", "[JumpBack]ClosePopup", "[JumpBack]NetworkRetry"],
         }
     }
 
