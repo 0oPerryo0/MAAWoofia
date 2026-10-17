@@ -1,0 +1,3 @@
+{
+    // 韓文資源層只替換 OCR 模型（model/ocr，由 tools/configure.py 複製）；MaaFramework 要求資源包內至少有一個 pipeline 檔
+}

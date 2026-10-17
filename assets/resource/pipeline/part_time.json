@@ -38,7 +38,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "鍵領取",
+                        "expected": "鍵領取|键领取|Claim.?All|括受取|일괄 ?수령",
                         "roi": [370, 1180, 170, 60]
                     },
                     {
@@ -60,7 +60,7 @@
     },
     "PartTime_Reward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 840, 720, 80],
         "action": "Click",
         "post_delay": 1500,
@@ -78,7 +78,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "鍵打工",
+                        "expected": "鍵打工|键打工|Quick.?Send|括バイト|일괄 ?알바",
                         "roi": [185, 1180, 170, 60]
                     },
                     {
@@ -107,12 +107,12 @@
                     {
                         "recognition": "OCR",
                         // OCR 常漏讀細筆畫「一」
-                        "expected": "鍵打工",
+                        "expected": "鍵打工|键打工|Quick.?Send|括バイト|일괄 ?알바",
                         "roi": [240, 135, 240, 60]
                     },
                     {
                         "recognition": "OCR",
-                        "expected": "^打工$",
+                        "expected": "^打工$|^Part-Time$|^Go!?$|^バイト$|^알바$|^하기$",
                         "roi": [385, 1010, 150, 50]
                     }
                 ],
@@ -130,7 +130,7 @@
     },
     "PartTime_Done": {
         "recognition": "OCR",
-        "expected": "鍵打工",
+        "expected": "鍵打工|键打工|Quick.?Send|括バイト|일괄 ?알바",
         "roi": [185, 1180, 170, 60],
         "next": [
             "HomeAnchor",

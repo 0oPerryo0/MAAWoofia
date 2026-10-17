@@ -30,7 +30,7 @@
     },
     "Guild_CheckInPopup": {
         "recognition": "OCR",
-        "expected": "獎勵已放入背包",
+        "expected": "獎勵已放入背包|奖励已放入背包|sent.?to.?Bag|バッグに送られ|가방에 ?넣었",
         "roi": [180, 745, 360, 60],
         "action": "Click",
         "target": [285, 800, 150, 48],
@@ -43,7 +43,7 @@
     },
     "Guild_OpenMissions": {
         "recognition": "OCR",
-        "expected": "公會任務",
+        "expected": "公會任務|公会任务|Guild.?Missions|ギルドクエスト|길드 ?미션",
         "roi": [430, 320, 160, 55],
         "action": "Click",
         "target_offset": [0, -50, 0, 0],
@@ -62,7 +62,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "鍵領取",
+                        "expected": "鍵領取|键领取|Claim.?All|括受取|일괄 ?수령",
                         "roi": [275, 1180, 170, 60]
                     },
                     {
@@ -84,7 +84,7 @@
     },
     "Guild_Reward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 840, 720, 80],
         "action": "Click",
         "post_delay": 1500,
@@ -95,7 +95,7 @@
     },
     "Guild_NothingToClaim": {
         "recognition": "OCR",
-        "expected": "鍵領取",
+        "expected": "鍵領取|键领取|Claim.?All|括受取|일괄 ?수령",
         "roi": [275, 1180, 170, 60],
         "next": [
             "HomeAnchor",

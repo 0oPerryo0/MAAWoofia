@@ -12,7 +12,7 @@ except ModuleNotFoundError as e:
         "Or add it to your project's requirements."
     ) from e
 
-from configure import configure_ocr_model
+from configure import configure_korean_ocr_model, configure_ocr_model
 
 
 working_dir = Path(__file__).parent.parent.resolve()
@@ -102,10 +102,17 @@ def install_deps():
 def install_resource():
 
     configure_ocr_model()
+    configure_korean_ocr_model()
 
     shutil.copytree(
         working_dir / "assets" / "resource",
         install_path / "resource",
+        dirs_exist_ok=True,
+    )
+    shutil.copytree(
+        working_dir / "assets" / "resource_ko",
+        install_path / "resource_ko",
+        ignore=shutil.ignore_patterns(".gitignore"),
         dirs_exist_ok=True,
     )
     shutil.copy2(

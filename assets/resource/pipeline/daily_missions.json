@@ -32,7 +32,7 @@
     },
     "Missions_DailyTab": {
         "recognition": "OCR",
-        "expected": "每日任務",
+        "expected": "每日任務|每日任务|^Daily$|デイリー|일일 ?미션",
         "roi": [30, 1105, 180, 55],
         "action": "Click",
         "post_delay": 1500,
@@ -49,7 +49,7 @@
                 "all_of": [
                     {
                         "recognition": "OCR",
-                        "expected": "鍵領取",
+                        "expected": "鍵領取|键领取|Claim.?All|括受取|일괄 ?수령",
                         "roi": [275, 1180, 170, 60]
                     },
                     {
@@ -71,7 +71,7 @@
     },
     "Missions_DailyReward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 840, 720, 80],
         "action": "Click",
         "post_delay": 1500,
@@ -84,7 +84,7 @@
     },
     "Missions_GoWeekly": {
         "recognition": "OCR",
-        "expected": "每週任務",
+        "expected": "每週任務|每周任务|^Weekly$|ウィークリー|주간 ?미션",
         "roi": [270, 1105, 180, 55],
         "action": "Click",
         "post_delay": 1500,
@@ -112,7 +112,7 @@
     },
     "Missions_WeeklyReward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 840, 720, 80],
         "action": "Click",
         "post_delay": 1500,
@@ -141,7 +141,7 @@
     },
     "Missions_DailyChestReward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 840, 720, 80],
         "action": "Click",
         "post_delay": 1500,
@@ -204,7 +204,7 @@
     },
     "Missions_WeeklyChestReward": {
         "recognition": "OCR",
-        "expected": "點擊.*關閉",
+        "expected": "點擊.*關閉|点击.*关闭|blank.?area.?to.?close|タップして閉じ|클릭해서 ?닫기",
         "roi": [0, 840, 720, 80],
         "action": "Click",
         "post_delay": 1500,
@@ -216,7 +216,7 @@
     },
     "Missions_Done": {
         "recognition": "OCR",
-        "expected": "鍵領取",
+        "expected": "鍵領取|键领取|Claim.?All|括受取|일괄 ?수령",
         "roi": [275, 1180, 170, 60],
         "next": [
             "HomeAnchor",

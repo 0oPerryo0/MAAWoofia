@@ -85,3 +85,9 @@ def test_hard_stage_requires_hard_prefix():
 
 def test_normal_stage_rejects_hard_label():
     assert not stage_matches("困難11-4", (11, 4), hard=False)
+
+
+def test_hard_mode_detected_in_every_language():
+    for label in ("困難 11-4", "困难 11-4", "Hard 11-4", "ハード 11-4", "하드 11-4"):
+        assert stage_matches(label, (11, 4), hard=True)
+        assert not stage_matches(label, (11, 4), hard=False)

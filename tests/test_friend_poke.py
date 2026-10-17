@@ -49,3 +49,8 @@ def test_grey_icon_is_not_pokeable():
 def test_targets_skip_grey_buttons():
     image = _image_with_icon((250, 215, 40), 564, 277)  # first row yellow, second row black/grey
     assert poke_targets(PAGE, image) == [(564, 277)]
+
+
+def test_poke_label_in_other_languages():
+    for label in ("Poke", "顶一下", "挨拶する", "찌르기"):
+        assert poke_targets([R(label, (534, 305, 61, 25))]) == [(564, 277)]

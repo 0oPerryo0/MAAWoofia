@@ -17,10 +17,19 @@
         }
     ],
     "resource": [
+        // 遊戲語言為繁中、简中、English、日本語時使用
         {
             "name": "官方 APK",
             "path": [
                 "./resource"
+            ]
+        },
+        // 遊戲語言為한국어時使用：疊加韓文 OCR 模型
+        {
+            "name": "官方 APK（한국어）",
+            "path": [
+                "./resource",
+                "./resource_ko"
             ]
         }
     ],
