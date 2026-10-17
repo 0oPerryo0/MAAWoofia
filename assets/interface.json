@@ -2,6 +2,7 @@
     // 文件：https://maafw.xyz/docs/3.3-ProjectInterfaceV2
     "interface_version": 2,
     "name": "MaaWoofia",
+    "icon": "./resource/icon.png",
     "description": "XXL Woofia 每日自動化小幫手，基於 MaaFramework。",
     "license": "MIT",
     // 填寫專案位址可啟用 UI 的更新檢查
